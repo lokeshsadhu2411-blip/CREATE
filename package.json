@@ -1,29 +1,28 @@
 {
-  "name": "ai-citizen-grievance-platform",
+  "name": "fitnexa-ai",
   "version": "1.0.0",
-  "description": "AI-Powered Citizen Grievance Redressal Platform with Computer Vision, Multilingual Voice, GPS Routing, Duplicate Detection, Supabase Cloud PostgreSQL, and Municipal Admin Operations",
+  "description": "FITNEXA AI - Premium AI-Powered Fitness Coach, Workout Tracker, and Progress Platform with Google Gemini & Supabase integration",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
   },
   "keywords": [
+    "fitness",
     "ai",
-    "civic-tech",
-    "grievance-redressal",
-    "smart-city",
-    "computer-vision",
-    "multilingual",
+    "workout",
+    "calisthenics",
+    "yoga",
+    "gym",
+    "gemini",
     "supabase"
   ],
-  "author": "NagarikAI Team",
+  "author": "FITNEXA AI",
   "license": "MIT",
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "isomorphic-git": "^1.42.2",
-    "multer": "^1.4.5-lts.1"
+    "express": "^4.21.2"
   }
 }

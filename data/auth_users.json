@@ -1,0 +1,20 @@
+[
+  {
+    "uid": "usr_admin_alex",
+    "name": "Alex Rivera",
+    "email": "admin@vesper.ai",
+    "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "role": "Admin",
+    "photoURL": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+    "createdAt": "2026-09-28T06:23:22.634Z"
+  },
+  {
+    "uid": "usr_member_sarah",
+    "name": "Sarah Chen",
+    "email": "sarah@enterprise.com",
+    "passwordHash": "dd7f6bfb6e0d8bcd754e97cae4975c07996f00508f8346d649c5814e19c3f9b9",
+    "role": "Member",
+    "photoURL": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
+    "createdAt": "2026-09-28T06:23:22.635Z"
+  }
+]

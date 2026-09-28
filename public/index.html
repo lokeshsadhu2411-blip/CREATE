@@ -1,716 +1,1702 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="theme-dark density-comfortable">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NagarikAI - AI Citizen Grievance Redressal & Civic Action Platform</title>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  
-  <!-- Custom Stylesheet -->
+  <title>FITNEXA AI - Your AI Coach. Your Workout. Your Progress.</title>
+  <meta name="description" content="FITNEXA AI is a modern, responsive personal fitness coach web application featuring AI workout planning, real-time rest timers, interactive muscle recovery map, nutrition tracking, and gamified progress.">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 </head>
 <body>
 
-  <!-- ============================================================== -->
-  <!-- TOP NAVIGATION HEADER                                          -->
-  <!-- ============================================================== -->
-  <header class="header-glass">
-    <div class="container nav-inner">
-      <!-- Logo & Brand -->
-      <div class="brand-wrapper" onclick="switchTab('report')">
-        <div class="brand-icon">🏛️</div>
-        <div class="brand-text">
-          <h1>
-            <span data-i18n="brandTitle">NagarikAI</span>
-            <span class="brand-badge">Civic 2.0</span>
-          </h1>
-          <p data-i18n="brandSubtitle">Smart Civic Grievance & Redressal Hub</p>
+  <div class="app-container">
+    <!-- DESKTOP SIDEBAR -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div class="brand-title">FITNEXA <span class="text-primary">AI</span></div>
+          <span class="brand-tagline">Your AI Coach. Your Progress.</span>
         </div>
       </div>
 
-      <!-- Controls: Supabase, Role, Language, Accessibility, Notifications -->
-      <div class="header-controls">
-        <!-- Supabase Cloud Status & Config Button -->
-        <button id="supabaseStatusBtn" class="mode-toggle-btn" onclick="openSupabaseModal()" title="Supabase Cloud Database Settings">
-          ⚡ <span id="supabaseStatusLabel">Supabase: Local</span>
-        </button>
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="nav-link active" data-route="dashboard" onclick="FitnexaApp.navigateTo('dashboard')">
+          <span>📊</span> Dashboard
+        </a>
+        <a href="#coach" class="nav-link" data-route="coach" onclick="FitnexaApp.navigateTo('coach')">
+          <span>🤖</span> AI Coach
+        </a>
+        <a href="#workouts" class="nav-link" data-route="workouts" onclick="FitnexaApp.navigateTo('workouts')">
+          <span>🏋️</span> Workouts
+        </a>
+        <a href="#exercises" class="nav-link" data-route="exercises" onclick="FitnexaApp.navigateTo('exercises')">
+          <span>📖</span> Exercises
+        </a>
+        <a href="#nutrition" class="nav-link" data-route="nutrition" onclick="FitnexaApp.navigateTo('nutrition')">
+          <span>🥗</span> Nutrition
+        </a>
+        <a href="#progress" class="nav-link" data-route="progress" onclick="FitnexaApp.navigateTo('progress')">
+          <span>📈</span> Progress
+        </a>
+        <a href="#recovery" class="nav-link" data-route="recovery" onclick="FitnexaApp.navigateTo('recovery')">
+          <span>🧬</span> Recovery & Map
+        </a>
+        <a href="#challenges" class="nav-link" data-route="challenges" onclick="FitnexaApp.navigateTo('challenges')">
+          <span>🎯</span> Challenges
+        </a>
+        <a href="#community" class="nav-link" data-route="community" onclick="FitnexaApp.navigateTo('community')">
+          <span>👥</span> Community
+        </a>
+        <a href="#profile" class="nav-link" data-route="profile" onclick="FitnexaApp.navigateTo('profile')">
+          <span>👤</span> Profile
+        </a>
+        <a href="#logout" class="nav-link text-danger" onclick="event.preventDefault(); FitnexaApp.logout();" style="color: var(--danger, #ef4444); border-top: 1px solid var(--border-glass); margin-top: 10px;">
+          <span>🚪</span> Log Out
+        </a>
+      </nav>
 
-        <!-- Role Switcher -->
-        <div class="role-switcher">
-          <button class="role-btn active" data-role="citizen" onclick="setRole('citizen')">
-            <span>👤</span> <span data-i18n="roleCitizen">Citizen</span>
-          </button>
-          <button class="role-btn" data-role="admin" onclick="setRole('admin')">
-            <span>🏛️</span> <span data-i18n="roleAdmin">Officer Hub</span>
-          </button>
+      <div class="sidebar-footer">
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-semibold">Rest Timer</span>
         </div>
-
-        <!-- Language Selector -->
-        <select id="langSelect" class="lang-select" onchange="setLanguage(this.value)">
-          <option value="en">🌐 English</option>
-          <option value="te">తెలుగు (Telugu)</option>
-          <option value="hi">हिन्दी (Hindi)</option>
-          <option value="ta">தமிழ் (Tamil)</option>
-          <option value="kn">ಕನ್ನಡ (Kannada)</option>
-          <option value="ml">മലയാളം (Malayalam)</option>
-        </select>
-
-        <!-- Senior / High Contrast Mode Toggle -->
-        <button id="accessibleModeToggle" class="mode-toggle-btn" onclick="toggleAccessibleMode()" title="Toggle Senior Citizen / High Contrast Mode">
-          👓 <span data-i18n="seniorMode">Senior Mode</span>
-        </button>
-
-        <!-- Notification Bell -->
-        <button class="notif-bell-btn" onclick="toggleNotificationCenter()" title="Notifications">
-          🔔
-          <span id="notifBadge" class="notif-badge">3</span>
+        <button type="button" class="btn-icon" onclick="FitnexaPlayer.openStandaloneTimer()" title="Open Rest Timer">
+          ⏱️
         </button>
       </div>
-    </div>
-  </header>
+    </aside>
 
-  <!-- ============================================================== -->
-  <!-- MAIN NAVIGATION TABS                                           -->
-  <!-- ============================================================== -->
-  <nav class="nav-tabs-wrapper">
-    <div class="container nav-tabs">
-      <button class="nav-tab active" data-tab="report">
-        <span>📸</span> <span data-i18n="navReport">Report Grievance</span>
-      </button>
-      <button class="nav-tab" data-tab="track">
-        <span>🔍</span> <span data-i18n="navTrack">Live Tracker & Feed</span>
-      </button>
-      <button class="nav-tab" data-tab="heatmap">
-        <span>🗺️</span> <span data-i18n="navHeatmap">Civic Heatmap & Analytics</span>
-      </button>
-      <button class="nav-tab" data-tab="admin" style="display:none;">
-        <span>🛠️</span> <span data-i18n="navAdmin">Municipal Operations</span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- ============================================================== -->
-  <!-- MAIN CONTENT AREA                                              -->
-  <!-- ============================================================== -->
-  <main class="main-content">
-    <div class="container">
-
-      <!-- ========================================================== -->
-      <!-- TAB 1: REPORT CIVIC GRIEVANCE                              -->
-      <!-- ========================================================== -->
-      <section id="tab-report" class="tab-pane active">
-        <div style="margin-bottom: 24px;">
-          <h2 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px;" data-i18n="reportHeader">
-            AI-Powered Civic Issue Reporting
-          </h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 4px;" data-i18n="reportSubheader">
-            Snap a photo or speak in your regional language. AI detects the problem, captures GPS, and routes directly to authorities.
-          </p>
+    <!-- MAIN APP CONTENT -->
+    <main class="app-main">
+      <!-- TOP NAVIGATION BAR -->
+      <header class="app-topbar">
+        <div class="flex items-center gap-3">
+          <!-- Global Search trigger -->
+          <div class="topbar-search-trigger" onclick="FitnexaApp.openGlobalSearch()">
+            <span>🔍</span>
+            <span>Search exercises, workouts...</span>
+            <span class="kbd-shortcut">Ctrl+K</span>
+          </div>
         </div>
 
-        <form id="civicReportForm">
-          <div class="report-grid">
-            
-            <!-- LEFT COLUMN: SENSOR CAPTURE (Vision + Voice) -->
-            <div class="report-left">
-              <div class="card" style="margin-bottom: 20px;">
-                <div class="card-header">
-                  <div class="card-title">
-                    <span>📷</span> <span>Visual AI Scanner & Camera</span>
-                  </div>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="triggerCameraCapture()">
-                    <span>🎥</span> Take Live Photo
-                  </button>
-                </div>
+        <div class="topbar-actions">
+          <!-- Rest Timer Quick Button -->
+          <button type="button" class="btn-secondary btn-sm" onclick="FitnexaPlayer.openStandaloneTimer()" title="Rest Timer">
+            ⏱️ <span class="hidden sm-inline">Rest Timer</span>
+          </button>
 
-                <!-- Dropzone / HUD Container -->
-                <div id="uploadDropzone" class="upload-dropzone">
-                  <input type="file" id="imageFileInput" accept="image/*" style="display: none;">
-                  
-                  <div id="dropzonePrompt" class="dropzone-prompt">
-                    <div class="dropzone-icon">📸</div>
-                    <div>
-                      <div style="font-weight: 700; font-size: 1rem; color: #fff;" data-i18n="dropzoneText">
-                        Drop civic issue photo or click to capture
-                      </div>
-                      <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;" data-i18n="dropzoneSub">
-                        Supports JPG, PNG, WEBP up to 10MB • AI analyzes automatically
-                      </div>
-                    </div>
-                  </div>
+          <!-- Theme Quick Dropdown Switcher -->
+          <div class="theme-quick-picker flex gap-1">
+            <button type="button" class="btn-icon btn-theme-choice" data-theme="theme-dark" onclick="FitnexaApp.applyTheme('theme-dark')" title="Dark Mode">🌙</button>
+            <button type="button" class="btn-icon btn-theme-choice" data-theme="theme-light" onclick="FitnexaApp.applyTheme('theme-light')" title="Light Mode">☀️</button>
+            <button type="button" class="btn-icon btn-theme-choice" data-theme="theme-midnight" onclick="FitnexaApp.applyTheme('theme-midnight')" title="Midnight Mode">🌌</button>
+            <button type="button" class="btn-icon btn-theme-choice" data-theme="theme-energy" onclick="FitnexaApp.applyTheme('theme-energy')" title="Energy Mode">⚡</button>
+            <button type="button" class="btn-icon btn-theme-choice" data-theme="theme-minimal" onclick="FitnexaApp.applyTheme('theme-minimal')" title="Minimal Mode">⚪</button>
+          </div>
 
-                  <!-- AI Vision HUD -->
-                  <div id="visionHudContainer" class="vision-hud-container">
-                    <img id="previewImg" class="preview-img" src="" alt="Issue Preview">
-                    <div class="hud-scanline"></div>
-                    <div id="hudBox" class="hud-box">
-                      <div id="hudBoxTag" class="hud-box-tag">ANALYZING DEFECT...</div>
-                    </div>
-                    <div id="hudTelemetry" class="hud-telemetry">
-                      INITIALIZING COMPUTER VISION...
-                    </div>
-                  </div>
-                </div>
+          <!-- Notification Bell -->
+          <div class="notif-bell-wrap">
+            <button type="button" class="btn-icon" onclick="FitnexaApp.toggleNotificationPanel()" title="Notifications">
+              🔔
+              <span id="nav-notif-badge" class="notif-badge">3</span>
+            </button>
 
-                <!-- Quick Test Preset Chips -->
-                <div style="margin-top: 16px;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-dim); margin-bottom: 6px;" data-i18n="quickTestTitle">
-                    Quick Test Scenarios:
-                  </div>
-                  <div id="presetChips" class="preset-chips"></div>
-                </div>
+            <!-- Dropdown Panel -->
+            <div id="notification-dropdown-panel" class="notification-dropdown card-glass">
+              <div class="notif-dropdown-header">
+                <span class="font-bold text-sm">Notifications</span>
+                <button type="button" class="btn-ghost btn-sm text-xs" onclick="FitnexaApp.markAllNotificationsRead()">Mark all as read</button>
+              </div>
+              <div id="notification-items-list" class="notif-items-list"></div>
+            </div>
+          </div>
 
-                <!-- Voice Complaint Studio -->
-                <div class="voice-studio-card">
-                  <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
-                    <span style="display: flex; align-items: center; gap: 6px;">
-                      <span>🎙️</span> <span data-i18n="voiceStudioTitle">Voice-Based Complaint Recording</span>
-                    </span>
-                    <span style="font-size: 0.75rem; color: var(--cyan); font-weight: 600;">Supports 6 Languages</span>
-                  </div>
+          <!-- User Profile Avatar Pill -->
+          <div class="user-avatar-btn" onclick="FitnexaApp.navigateTo('profile')">
+            <div class="user-avatar-circle">A</div>
+            <span class="text-xs font-bold hidden md-inline">Alex</span>
+          </div>
 
-                  <div class="voice-controls-row">
-                    <button type="button" id="voiceMicBtn" class="mic-btn" title="Click to Speak">
-                      🎤
-                    </button>
-                    <canvas id="waveformCanvas" class="waveform-canvas" width="300" height="48"></canvas>
-                  </div>
-                  <div id="voiceStatusText" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; font-style: italic;" data-i18n="voicePrompt">
-                    Click microphone to record your complaint in your mother tongue...
-                  </div>
-                </div>
+          <!-- Settings Button -->
+          <button type="button" class="btn-icon" onclick="FitnexaApp.openSettingsModal()" title="Settings">
+            ⚙️
+          </button>
+
+          <!-- Logout Button in Navigation Bar -->
+          <button type="button" id="topbar-logout-btn" class="btn-outline-danger btn-sm flex items-center gap-1.5 font-bold" onclick="FitnexaApp.logout()" title="Log Out of Account">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            <span>Log Out</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ========================================== -->
+      <!-- VIEW 1: DASHBOARD -->
+      <!-- ========================================== -->
+      <section id="view-dashboard" class="view-panel active">
+        <!-- Greeting & Subtitle -->
+        <div class="dashboard-greeting-wrap mb-6 flex justify-between items-end flex-wrap gap-4">
+          <div>
+            <h1 id="dash-greeting" class="text-3xl font-extrabold">Good Morning, Alex 👋</h1>
+            <p class="text-muted text-sm mt-1">Ready to become stronger today? Consistency beats intensity.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="card-glass py-2 px-4 flex items-center gap-2">
+              <span class="text-lg">⚡</span>
+              <div>
+                <div id="dash-level-val" class="font-bold text-xs">Level 12</div>
+                <div id="dash-xp-val" class="text-micro text-muted">1,240 XP</div>
               </div>
             </div>
+            <div class="card-glass py-2 px-4">
+              <span id="dash-streak-val" class="font-bold text-xs text-accent">🔥 7 Day Streak</span>
+            </div>
+          </div>
+        </div>
 
-            <!-- RIGHT COLUMN: AI TRIAGE & GEOLOCATION FORM -->
-            <div class="report-right">
-              
-              <!-- Duplicate Alert Banner -->
-              <div id="duplicateAlertBanner" class="duplicate-alert-banner">
-                <div class="dup-header">
-                  <div class="dup-title">
-                    <span>⚠️</span> <span data-i18n="duplicateAlert">Similar Issue Found Nearby!</span>
+        <!-- Today's Summary Metrics Cards -->
+        <div class="summary-stats-grid mb-6">
+          <div class="card-glass stat-metric-card">
+            <div class="stat-icon-wrap text-yellow-400">🔥</div>
+            <span class="text-xs uppercase font-bold text-muted">Calories Burned</span>
+            <span id="dash-cal-val" class="text-2xl font-extrabold mt-1">420 kcal</span>
+            <span class="text-xs text-primary mt-2">Target: 600 kcal</span>
+          </div>
+
+          <div class="card-glass stat-metric-card">
+            <div class="stat-icon-wrap text-primary">💪</div>
+            <span class="text-xs uppercase font-bold text-muted">Workout</span>
+            <span id="dash-workout-val" class="text-2xl font-extrabold mt-1">45 min</span>
+            <span class="text-xs text-primary mt-2">1 Session Complete</span>
+          </div>
+
+          <div class="card-glass stat-metric-card">
+            <div class="stat-icon-wrap text-secondary">💧</div>
+            <span class="text-xs uppercase font-bold text-muted">Water Intake</span>
+            <span id="dash-water-val" class="text-2xl font-extrabold mt-1">2.1 L / 3.0 L</span>
+            <button type="button" class="btn-ghost btn-sm text-xs mt-2 self-start p-0 text-primary" onclick="FitnexaApp.addWaterLog(0.25)">
+              + Add 250ml
+            </button>
+          </div>
+
+          <div class="card-glass stat-metric-card">
+            <div class="stat-icon-wrap text-accent">😴</div>
+            <span class="text-xs uppercase font-bold text-muted">Sleep Quality</span>
+            <span id="dash-sleep-val" class="text-2xl font-extrabold mt-1">7h 20m</span>
+            <span class="text-xs text-primary mt-2">88% Restoration</span>
+          </div>
+
+          <div class="card-glass stat-metric-card">
+            <div class="stat-icon-wrap text-green-400">👟</div>
+            <span class="text-xs uppercase font-bold text-muted">Daily Steps</span>
+            <span id="dash-steps-val" class="text-2xl font-extrabold mt-1">7,842</span>
+            <span class="text-xs text-muted mt-2">Goal: 10,000 steps</span>
+          </div>
+        </div>
+
+        <!-- Today's Plan Hero Banner -->
+        <div class="hero-plan-banner card-glass p-6 mb-6 flex justify-between items-center flex-wrap gap-4">
+          <div>
+            <span class="badge-mini text-primary uppercase tracking-wider">Today's Scheduled Routine</span>
+            <h2 class="text-2xl font-extrabold mt-1">🔥 Upper Body Power & Tone</h2>
+            <p class="text-sm text-muted mt-1">45 mins • Intermediate • Targets Chest, Back, Shoulders & Arms</p>
+          </div>
+          <div class="flex gap-3">
+            <button type="button" class="btn-primary btn-lg font-bold" onclick="FitnexaPlayer.startWorkout(FITNEXA_DATA.workouts.find(w => w.id === 'w_upper_body'))">
+              🚀 START WORKOUT
+            </button>
+            <button type="button" class="btn-secondary" onclick="FitnexaApp.previewWorkout('w_upper_body')">
+              Preview Lineup
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Action Nav Chips -->
+        <div class="quick-actions-row mb-6">
+          <button type="button" class="action-btn-chip" onclick="FitnexaApp.navigateTo('coach')">
+            <span class="text-2xl">🤖</span>
+            <span>AI Coach</span>
+          </button>
+          <button type="button" class="action-btn-chip" onclick="FitnexaApp.filterWorkouts('Gym'); FitnexaApp.navigateTo('workouts')">
+            <span class="text-2xl">🏋️</span>
+            <span>Gym Splits</span>
+          </button>
+          <button type="button" class="action-btn-chip" onclick="FitnexaApp.filterWorkouts('Calisthenics'); FitnexaApp.navigateTo('workouts')">
+            <span class="text-2xl">🤸</span>
+            <span>Calisthenics</span>
+          </button>
+          <button type="button" class="action-btn-chip" onclick="FitnexaApp.filterWorkouts('Yoga'); FitnexaApp.navigateTo('workouts')">
+            <span class="text-2xl">🧘</span>
+            <span>Yoga Flow</span>
+          </button>
+          <button type="button" class="action-btn-chip" onclick="FitnexaApp.navigateTo('progress')">
+            <span class="text-2xl">📈</span>
+            <span>Progress Charts</span>
+          </button>
+          <button type="button" class="action-btn-chip" onclick="FitnexaApp.navigateTo('recovery')">
+            <span class="text-2xl">🧬</span>
+            <span>Body Map</span>
+          </button>
+          <button type="button" class="action-btn-chip" onclick="FitnexaApp.openBmiCalculator()">
+            <span class="text-2xl">⚖️</span>
+            <span>BMI & Calories</span>
+          </button>
+        </div>
+
+        <!-- Dashboard Grid: Habits & Recovery Snippet -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Daily Habits Tracker -->
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="text-lg font-bold">Daily Habits</h3>
+                <span class="text-xs text-muted">Complete daily check-ins to build momentum</span>
+              </div>
+              <span class="badge-mini text-primary">🔥 7 Day Streak</span>
+            </div>
+            <div id="dash-habits-container"></div>
+          </div>
+
+          <!-- Recovery Status Snippet -->
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="text-lg font-bold">Muscle Recovery Status</h3>
+                <span class="text-xs text-muted">Estimated muscular readiness for training</span>
+              </div>
+              <button type="button" class="btn-ghost btn-sm text-xs" onclick="FitnexaApp.navigateTo('recovery')">
+                View 3D Body Map →
+              </button>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3 card-glass flex justify-between items-center">
+                <div>
+                  <span class="font-bold text-sm">Chest & Triceps</span>
+                  <div class="text-xs text-muted">Trained yesterday • Push Day</div>
+                </div>
+                <span class="badge-status status-recovering">82% Recovering</span>
+              </div>
+              <div class="p-3 card-glass flex justify-between items-center">
+                <div>
+                  <span class="font-bold text-sm">Back & Biceps</span>
+                  <div class="text-xs text-muted">Fully replenished glycogen</div>
+                </div>
+                <span class="badge-status status-ready">100% Ready</span>
+              </div>
+              <div class="p-3 card-glass flex justify-between items-center">
+                <div>
+                  <span class="font-bold text-sm">Legs & Quads</span>
+                  <div class="text-xs text-muted">Trained this morning • Squats</div>
+                </div>
+                <span class="badge-status status-fatigued">62% Rest Needed</span>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-glass flex justify-between items-center text-xs text-muted">
+              <span>Next Recommended Session:</span>
+              <strong class="text-primary font-bold">Back & Biceps Power Pull</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 2: AI FITNESS COACH -->
+      <!-- ========================================== -->
+      <section id="view-coach" class="view-panel">
+        <div class="coach-layout-grid">
+          <!-- Main Chat Panel -->
+          <div class="chat-container card-glass">
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-glass flex justify-between items-center flex-wrap gap-2">
+              <div class="flex items-center gap-3">
+                <div class="chat-avatar avatar-coach">⚡</div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h2 class="text-lg font-bold">FITNEXA AiCoche</h2>
+                    <span class="badge badge-primary text-xs px-2 py-0.5 rounded-full font-medium">AiCoche Mode</span>
                   </div>
-                  <button type="button" onclick="document.getElementById('duplicateAlertBanner').classList.remove('active')" style="background:none; border:none; color:var(--text-dim); cursor:pointer;">&times;</button>
-                </div>
-                <div id="dupDetailsText" style="font-size: 0.86rem; color: #fff; line-height: 1.4;">
-                  A similar incident was already reported within 150m.
-                </div>
-                <div class="dup-actions">
-                  <button type="button" id="btnDupUpvote" class="btn btn-success btn-sm">
-                    👍 <span data-i18n="btnUpvote">Upvote (+1 Me Too)</span>
-                  </button>
-                  <button type="button" onclick="document.getElementById('duplicateAlertBanner').classList.remove('active')" class="btn btn-secondary btn-sm">
-                    <span data-i18n="btnIgnoreDup">File Distinct Report</span>
-                  </button>
+                  <div id="coach-ai-model-badge" class="text-xs text-muted flex items-center gap-1">
+                    <span class="dot-online"></span> Powered by Gemini 3.8 Flash (All Models Allowed)
+                  </div>
                 </div>
               </div>
-
-              <!-- Main Grievance Form Card -->
-              <div class="card">
-                <div class="card-header">
-                  <div class="card-title">
-                    <span>🤖</span> <span data-i18n="triageTitle">AI Triage & Department Routing</span>
-                  </div>
-                </div>
-
-                <!-- AI Triage Meta Badges -->
-                <div class="triage-pills">
-                  <span id="triageDept" class="triage-pill pill-dept">Dept: Roads & Pavements Wing</span>
-                  <span id="triageSeverity" class="triage-pill pill-severity">Severity: High</span>
-                  <span id="triageConfidence" class="triage-pill pill-confidence">AI Confidence: 97.4%</span>
-                  <span id="triageSla" class="triage-pill pill-sla">Target SLA: 48h</span>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" data-i18n="fieldTitle">Grievance Title</label>
-                  <input type="text" id="complaintTitle" class="form-control" required placeholder="AI will auto-generate title from image/voice...">
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" data-i18n="fieldDesc">Detailed Description (AI Generated)</label>
-                  <textarea id="complaintDescription" class="form-control" rows="3" required placeholder="Detailed assessment will appear here after scanning..."></textarea>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-                  <div class="form-group">
-                    <label class="form-label" data-i18n="fieldCategory">Issue Category</label>
-                    <select id="complaintCategory" class="form-control" onchange="checkNearbyDuplicates()">
-                      <option value="potholes">🕳️ Potholes & Road Cracks</option>
-                      <option value="garbage">🗑️ Solid Waste & Garbage</option>
-                      <option value="water_leak">💧 Water Pipe Burst</option>
-                      <option value="drainage">🌊 Drainage & Sewage Overflow</option>
-                      <option value="streetlights">💡 Broken Streetlights</option>
-                      <option value="road_damage">🚧 Road Damage & Hazard</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="form-label">Citizen Phone / SMS</label>
-                    <input type="tel" id="citizenPhone" class="form-control" value="+91 98490 23456" placeholder="+91 XXXXX XXXXX">
-                  </div>
-                </div>
-
-                <!-- Location & GPS -->
-                <div class="form-group">
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <label class="form-label" style="margin-bottom:0;" data-i18n="fieldLocation">Location & Ward</label>
-                    <button type="button" id="btnDetectGps" class="btn btn-secondary btn-sm" onclick="autoDetectLocation()">
-                      <span>📍</span> <span data-i18n="btnDetectGps">Auto-Detect My GPS</span>
-                    </button>
-                  </div>
-                  <input type="text" id="complaintAddress" class="form-control" required placeholder="Street address or junction..." value="Cyber Towers Main Junction, Hitec City">
-                  <input type="text" id="complaintWard" class="form-control" style="margin-top: 8px;" placeholder="Ward name..." value="Ward 104 - Kondapur">
-                  
-                  <div style="margin-top: 8px;">
-                    <input type="text" id="complaintLandmark" class="form-control" placeholder="Optional Landmark (e.g. Near Metro Pillar 142)">
-                  </div>
-
-                  <!-- Hidden GPS Inputs -->
-                  <input type="hidden" id="complaintLat" value="17.4435">
-                  <input type="hidden" id="complaintLng" value="78.3772">
-                  <input type="hidden" id="complaintImageUrl" value="">
-
-                  <!-- Mini Map Pin Picker -->
-                  <div id="reportMiniMap"></div>
-                  <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">
-                    💡 Drag pin or tap map to calibrate exact issue location.
-                  </div>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" id="submitComplaintBtn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 10px;">
-                  <span>🚀</span> <span data-i18n="btnSubmit">Submit Civic Grievance</span>
+              <div class="flex items-center gap-2">
+                <select id="coach-model-select" class="form-select text-xs py-1.5 px-2.5 rounded-lg bg-surface border border-glass cursor-pointer" onchange="FitnexaCoach.setModel(this.value)">
+                  <option value="gemini-3.8-flash" selected>Gemini 3.8 Flash (Recommended)</option>
+                  <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+                  <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
+                  <option value="gemini-flash-latest">Gemini Flash Latest</option>
+                  <option value="gemini-pro-latest">Gemini Pro Latest</option>
+                  <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+                  <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                  <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview</option>
+                </select>
+                <button type="button" class="btn-primary btn-sm font-semibold" onclick="FitnexaCoach.openWorkoutWizard()">
+                  ⚡ Create Workout Plan
                 </button>
               </div>
             </div>
 
+            <!-- Messages Scroll Area -->
+            <div id="coach-chat-messages" class="chat-messages-area"></div>
+
+            <!-- Quick Action Suggestion Chips -->
+            <div class="prompt-suggestions-row">
+              <button type="button" class="prompt-chip" onclick="FitnexaCoach.sendPromptChip('Create my workout')">🎯 Create my workout</button>
+              <button type="button" class="prompt-chip" onclick="FitnexaCoach.sendPromptChip('Help me lose weight')">🔥 Help me lose weight</button>
+              <button type="button" class="prompt-chip" onclick="FitnexaCoach.sendPromptChip('Build muscle')">💪 Build muscle</button>
+              <button type="button" class="prompt-chip" onclick="FitnexaCoach.sendPromptChip('Improve flexibility')">🧘 Improve flexibility</button>
+              <button type="button" class="prompt-chip" onclick="FitnexaCoach.sendPromptChip('Start calisthenics')">🤸 Start calisthenics</button>
+              <button type="button" class="prompt-chip" onclick="FitnexaCoach.sendPromptChip('Create a yoga routine')">🌿 Create yoga routine</button>
+              <button type="button" class="prompt-chip" onclick="FitnexaCoach.sendPromptChip('Check my progress')">📈 Check my progress</button>
+            </div>
+
+            <!-- Input Box -->
+            <form class="chat-input-row" onsubmit="event.preventDefault(); FitnexaCoach.sendMessage();">
+              <input type="text" id="coach-input-field" class="chat-input-field" placeholder="Ask your coach anything about workouts, diet, form, or recovery..." autocomplete="off">
+              <button type="submit" class="btn-primary font-bold">
+                Send ➔
+              </button>
+            </form>
           </div>
-        </form>
+
+          <!-- Coach Sidebar / Info Panel -->
+          <div class="card-glass flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-bold mb-2">Coach Profile</h3>
+              <p class="text-xs text-muted leading-relaxed">
+                FITNEXA AI uses sports science algorithms and Google Gemini models to craft routines matched to your biological metrics, recovery rate, and equipment availability.
+              </p>
+
+              <div class="mt-4 p-3 card-glass space-y-2 text-xs">
+                <div class="flex justify-between">
+                  <span class="text-muted">Target Athlete:</span>
+                  <span class="font-bold">Alex (Intermediate)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-muted">Current Goal:</span>
+                  <span class="font-bold text-primary">Build Muscle</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-muted">Weight / Height:</span>
+                  <span>72.4 kg / 180 cm</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-muted">Schedule:</span>
+                  <span>5 Days/Week (45m)</span>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <h4 class="text-xs uppercase font-bold text-muted tracking-wider mb-2">Personalized Plan Wizard</h4>
+                <p class="text-xs text-muted mb-3">Answer 10 quick questions to construct an individualized multi-week training cycle.</p>
+                <button type="button" class="btn-secondary w-full text-xs font-bold" onclick="FitnexaCoach.openWorkoutWizard()">
+                  Launch Routine Builder
+                </button>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-glass text-xs text-muted">
+              🔒 FITNEXA AI strictly follows evidence-based athletic principles.
+            </div>
+          </div>
+        </div>
       </section>
 
-      <!-- ========================================================== -->
-      <!-- TAB 2: LIVE TRACKER & COMMUNITY FEED                       -->
-      <!-- ========================================================== -->
-      <section id="tab-track" class="tab-pane">
-        <div style="margin-bottom: 24px;">
-          <h2 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px;">
-            Real-Time Grievance Tracker & Community Feed
-          </h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 4px;">
-            Track progress from initial AI triage to field inspection and proof-of-work resolution.
-          </p>
+      <!-- ========================================== -->
+      <!-- VIEW 3: WORKOUTS & FITNESS MODES -->
+      <!-- ========================================== -->
+      <section id="view-workouts" class="view-panel">
+        <div class="flex justify-between items-center flex-wrap gap-4 mb-6">
+          <div>
+            <h1 class="text-3xl font-extrabold">Workout Programs</h1>
+            <p class="text-muted text-sm mt-1">Select from Gym Splits, Calisthenics Mastery, or Restorative Yoga</p>
+          </div>
+          <!-- Filter Buttons -->
+          <div class="flex gap-2">
+            <button type="button" class="btn-secondary btn-sm btn-workout-filter active" onclick="FitnexaApp.filterWorkouts('all', this)">All Modes</button>
+            <button type="button" class="btn-secondary btn-sm btn-workout-filter" onclick="FitnexaApp.filterWorkouts('Gym', this)">🏋️ Gym</button>
+            <button type="button" class="btn-secondary btn-sm btn-workout-filter" onclick="FitnexaApp.filterWorkouts('Calisthenics', this)">🤸 Calisthenics</button>
+            <button type="button" class="btn-secondary btn-sm btn-workout-filter" onclick="FitnexaApp.filterWorkouts('Yoga', this)">🧘 Yoga</button>
+          </div>
         </div>
 
-        <div class="track-search-bar">
-          <input type="text" id="trackSearchInput" class="form-control" style="flex:1;" placeholder="Search by Ticket ID (e.g. CIVIC-1001), keyword, or ward..." oninput="filterComplaintsFeed()">
-          <select id="trackCategoryFilter" class="form-control" style="max-width: 220px;" onchange="filterComplaintsFeed()">
-            <option value="all">All Categories</option>
-            <option value="potholes">Potholes</option>
-            <option value="garbage">Garbage Dumps</option>
-            <option value="water_leak">Water Leaks</option>
-            <option value="drainage">Drainage Overflow</option>
-            <option value="streetlights">Streetlights</option>
-            <option value="road_damage">Road Damage</option>
-          </select>
-          <button class="btn btn-secondary" onclick="loadComplaintsFeed()">🔄 Refresh</button>
-        </div>
+        <!-- Workout Cards Grid -->
+        <div id="workouts-cards-grid" class="workout-cards-grid"></div>
 
-        <div id="complaintsFeedContainer" class="complaints-feed"></div>
+        <!-- Calisthenics Progression Section -->
+        <div class="mt-10">
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <h2 class="text-2xl font-bold">Calisthenics Progression Trees</h2>
+              <p class="text-xs text-muted">Follow progressive overload milestones to unlock advanced bodyweight movements</p>
+            </div>
+            <span class="badge-mini text-primary uppercase">Gymnastics Path</span>
+          </div>
+          <div id="calisthenics-trees-container"></div>
+        </div>
       </section>
 
-      <!-- ========================================================== -->
-      <!-- TAB 3: CIVIC HEATMAP & ANALYTICS                           -->
-      <!-- ========================================================== -->
-      <section id="tab-heatmap" class="tab-pane">
-        <div style="margin-bottom: 24px;">
-          <h2 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px;">
-            Civic Grievance GIS Heatmap & Municipal Performance
-          </h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 4px;">
-            Geographic density clusters, department SLA compliance metrics, and AI predictive maintenance alerts.
-          </p>
+      <!-- ========================================== -->
+      <!-- VIEW 4: ACTIVE WORKOUT PLAYER -->
+      <!-- ========================================== -->
+      <section id="view-player" class="view-panel">
+        <div id="workout-player-container"></div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 5: EXERCISE LIBRARY -->
+      <!-- ========================================== -->
+      <section id="view-exercises" class="view-panel">
+        <div class="mb-6">
+          <h1 class="text-3xl font-extrabold">Exercise Library</h1>
+          <p class="text-muted text-sm mt-1">Search 40+ exercises with instructions, anatomy targets, and coaching tips</p>
         </div>
 
-        <div class="analytics-kpis">
-          <div class="kpi-card">
-            <div class="kpi-title">Total Grievances</div>
-            <div id="kpiTotal" class="kpi-value" style="color: #60a5fa;">0</div>
-            <div class="kpi-trend" style="color: var(--text-muted);">Real-time live intake</div>
+        <!-- Search & Filter Controls -->
+        <div class="card-glass p-4 mb-6 grid grid-cols-1 md:grid-cols-5 gap-3">
+          <div class="md:col-span-1">
+            <input type="text" id="exercise-search-input" placeholder="Search exercises..." oninput="FitnexaApp.renderExercisesView()">
           </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Active In-Progress</div>
-            <div id="kpiInProgress" class="kpi-value" style="color: #38bdf8;">0</div>
-            <div class="kpi-trend" style="color: var(--cyan);">Field crews dispatched</div>
+          <div>
+            <select id="exercise-filter-muscle" onchange="FitnexaApp.renderExercisesView()">
+              <option value="all">All Muscles</option>
+              <option value="Chest">Chest</option>
+              <option value="Back">Back</option>
+              <option value="Legs">Legs</option>
+              <option value="Shoulders">Shoulders</option>
+              <option value="Arms">Arms</option>
+              <option value="Core">Core / Abs</option>
+              <option value="Full Body">Full Body</option>
+            </select>
           </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Resolution Rate</div>
-            <div id="kpiResolved" class="kpi-value" style="color: #34d399;">0%</div>
-            <div class="kpi-trend" style="color: var(--emerald);">Verified with proof</div>
+          <div>
+            <select id="exercise-filter-equip" onchange="FitnexaApp.renderExercisesView()">
+              <option value="all">All Equipment</option>
+              <option value="Barbell">Barbell</option>
+              <option value="Dumbbell">Dumbbell</option>
+              <option value="Bodyweight">Bodyweight</option>
+              <option value="Cable">Cable Stack</option>
+              <option value="Machine">Machine</option>
+              <option value="Mat">Yoga Mat</option>
+            </select>
           </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Avg SLA Compliance</div>
-            <div id="kpiSla" class="kpi-value" style="color: #fbbf24;">0%</div>
-            <div class="kpi-trend" style="color: var(--amber);">Within statutory deadline</div>
+          <div>
+            <select id="exercise-filter-diff" onchange="FitnexaApp.renderExercisesView()">
+              <option value="all">All Difficulties</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
           </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Citizens Engaged</div>
-            <div id="kpiCitizens" class="kpi-value" style="color: #a78bfa;">0</div>
-            <div class="kpi-trend" style="color: var(--indigo);">Reports & Upvotes</div>
+          <div>
+            <select id="exercise-filter-type" onchange="FitnexaApp.renderExercisesView()">
+              <option value="all">All Types</option>
+              <option value="Gym">Gym</option>
+              <option value="Calisthenics">Calisthenics</option>
+              <option value="Yoga">Yoga</option>
+            </select>
           </div>
         </div>
 
-        <div class="predictive-banner">
-          <div class="pred-content">
-            <h4><span>🌦️</span> AI Monsoon & Drainage Risk Forecast</h4>
-            <p>
-              Predictive models indicate high probability of localized waterlogging in Ward 104 and Ward 107. Suction de-silting trucks pre-positioned at vulnerable culverts.
-            </p>
+        <!-- Exercise Cards Grid -->
+        <div id="exercise-cards-grid" class="workout-cards-grid"></div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 6: NUTRITION DASHBOARD -->
+      <!-- ========================================== -->
+      <section id="view-nutrition" class="view-panel">
+        <div class="flex justify-between items-center flex-wrap gap-4 mb-6">
+          <div>
+            <h1 class="text-3xl font-extrabold">Nutrition Tracker</h1>
+            <p class="text-muted text-sm mt-1">Track macros, caloric balance, hydration, and meal distribution</p>
           </div>
-          <button class="btn btn-secondary btn-sm" onclick="showToast('Pre-emptive dispatch order transmitted to Drainage wing.', 'success')">
-            Review Protocol
+          <button type="button" class="btn-primary font-bold" onclick="FitnexaApp.openAddFoodModal()">
+            + Log Food Item
           </button>
         </div>
 
-        <div class="card" style="margin-bottom: 24px;">
-          <div class="card-header">
-            <div class="card-title">
-              <span>🗺️</span> <span>City-Wide Geographic Issue Heatmap</span>
+        <!-- Macro Progress Cards Grid -->
+        <div class="nutrition-macros-grid mb-6">
+          <div class="card-glass macro-card">
+            <span class="text-xs uppercase font-bold text-muted">Daily Calories</span>
+            <span id="nutr-cal-val" class="text-2xl font-extrabold mt-1">2,150 / 2,400 kcal</span>
+            <div class="macro-bar-track">
+              <div id="nutr-cal-bar" class="macro-bar-fill fill-cal" style="width: 89%;"></div>
             </div>
-            <div style="font-size: 0.8rem; color: var(--text-dim); display: flex; align-items: center; gap: 12px;">
-              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:50%; background:#ef4444; display:inline-block;"></span> Critical</span>
-              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:50%; background:#f59e0b; display:inline-block;"></span> High</span>
-              <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:50%; background:#3b82f6; display:inline-block;"></span> Medium</span>
+            <span class="text-xs text-muted mt-2">250 kcal remaining today</span>
+          </div>
+
+          <div class="card-glass macro-card">
+            <span class="text-xs uppercase font-bold text-muted">Protein (Lean Mass)</span>
+            <span id="nutr-prot-val" class="text-2xl font-extrabold mt-1">142 / 160 g</span>
+            <div class="macro-bar-track">
+              <div id="nutr-prot-bar" class="macro-bar-fill fill-prot" style="width: 88%;"></div>
+            </div>
+            <span class="text-xs text-primary mt-2">18g left for target</span>
+          </div>
+
+          <div class="card-glass macro-card">
+            <span class="text-xs uppercase font-bold text-muted">Carbohydrates (Energy)</span>
+            <span id="nutr-carb-val" class="text-2xl font-extrabold mt-1">220 / 280 g</span>
+            <div class="macro-bar-track">
+              <div id="nutr-carb-bar" class="macro-bar-fill fill-carb" style="width: 78%;"></div>
+            </div>
+            <span class="text-xs text-muted mt-2">60g left for fuel</span>
+          </div>
+
+          <div class="card-glass macro-card">
+            <span class="text-xs uppercase font-bold text-muted">Healthy Fats</span>
+            <span id="nutr-fat-val" class="text-2xl font-extrabold mt-1">62 / 75 g</span>
+            <div class="macro-bar-track">
+              <div id="nutr-fat-bar" class="macro-bar-fill fill-fat" style="width: 82%;"></div>
+            </div>
+            <span class="text-xs text-muted mt-2">13g remaining</span>
+          </div>
+
+          <div class="card-glass macro-card">
+            <span class="text-xs uppercase font-bold text-muted">Hydration (Water)</span>
+            <span id="nutr-water-val" class="text-2xl font-extrabold mt-1">2.1 L / 3.0 L</span>
+            <div class="flex gap-2 mt-2">
+              <button type="button" class="btn-secondary btn-sm flex-1 text-xs" onclick="FitnexaApp.addWaterLog(0.25)">+250 ml</button>
+              <button type="button" class="btn-secondary btn-sm flex-1 text-xs" onclick="FitnexaApp.addWaterLog(0.5)">+500 ml</button>
             </div>
           </div>
-          <div id="gisHeatmap"></div>
         </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <span>🏛️</span> <span>Department SLA Performance & Resolution Leaderboard</span>
+        <!-- Meals Breakdown Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-base font-bold">🍳 Breakfast</h3>
+              <button type="button" class="btn-ghost btn-sm text-xs text-primary" onclick="FitnexaApp.openAddFoodModal('breakfast')">+ Add</button>
             </div>
+            <div id="meal-items-breakfast" class="space-y-1"></div>
           </div>
-          <div style="overflow-x: auto;">
-            <table class="dept-sla-table">
-              <thead>
-                <tr>
-                  <th>Department / Wing</th>
-                  <th>Avg Resolution Time</th>
-                  <th>SLA Compliance %</th>
-                  <th>Active Backlog</th>
-                </tr>
-              </thead>
-              <tbody id="deptSlaTableBody"></tbody>
-            </table>
+
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-base font-bold">🍗 Lunch</h3>
+              <button type="button" class="btn-ghost btn-sm text-xs text-primary" onclick="FitnexaApp.openAddFoodModal('lunch')">+ Add</button>
+            </div>
+            <div id="meal-items-lunch" class="space-y-1"></div>
+          </div>
+
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-base font-bold">🐟 Dinner</h3>
+              <button type="button" class="btn-ghost btn-sm text-xs text-primary" onclick="FitnexaApp.openAddFoodModal('dinner')">+ Add</button>
+            </div>
+            <div id="meal-items-dinner" class="space-y-1"></div>
+          </div>
+
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-base font-bold">🥜 Snacks & Shakes</h3>
+              <button type="button" class="btn-ghost btn-sm text-xs text-primary" onclick="FitnexaApp.openAddFoodModal('snacks')">+ Add</button>
+            </div>
+            <div id="meal-items-snacks" class="space-y-1"></div>
           </div>
         </div>
       </section>
 
-      <!-- ========================================================== -->
-      <!-- TAB 4: MUNICIPAL ADMIN & OFFICER OPERATIONS                -->
-      <!-- ========================================================== -->
-      <section id="tab-admin" class="tab-pane">
-        <div style="margin-bottom: 24px;">
-          <h2 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px;">
-            Municipal Officer Operations & Grievance Dispatch Hub
-          </h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 4px;">
-            Triage public grievances, dispatch field engineering teams, and verify resolutions with Before/After proof.
-          </p>
+      <!-- ========================================== -->
+      <!-- VIEW 7: PROGRESS & CHARTS -->
+      <!-- ========================================== -->
+      <section id="view-progress" class="view-panel">
+        <div class="flex justify-between items-center flex-wrap gap-4 mb-6">
+          <div>
+            <h1 class="text-3xl font-extrabold">Progress & Analytics</h1>
+            <p class="text-muted text-sm mt-1">Track body weight, strength progression, and workout frequency</p>
+          </div>
+          <!-- Time Range Selector -->
+          <div class="flex gap-1 card-glass p-1">
+            <button type="button" class="btn-ghost btn-sm font-bold" onclick="FitnexaCharts.setRange('days7')">7 Days</button>
+            <button type="button" class="btn-ghost btn-sm font-bold" onclick="FitnexaCharts.setRange('days30')">30 Days</button>
+            <button type="button" class="btn-ghost btn-sm font-bold" onclick="FitnexaCharts.setRange('days90')">90 Days</button>
+            <button type="button" class="btn-ghost btn-sm font-bold" onclick="FitnexaCharts.setRange('days365')">1 Year</button>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="admin-toolbar">
-            <div class="admin-filters">
-              <input type="text" id="adminSearchInput" class="form-control" style="width: 220px;" placeholder="Filter by ID, Title, Ward..." oninput="filterAdminComplaints()">
-              <select id="adminStatusFilter" class="form-control" style="width: 160px;" onchange="filterAdminComplaints()">
-                <option value="all">All Statuses</option>
-                <option value="Reported">Reported</option>
-                <option value="Assigned">Assigned</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Resolved">Resolved</option>
-              </select>
-              <select id="adminDeptFilter" class="form-control" style="width: 200px;" onchange="filterAdminComplaints()">
-                <option value="all">All Departments</option>
-                <option value="Roads, Bridges & Pavements Wing">Roads & Pavements</option>
-                <option value="Solid Waste Management & Sanitation">Solid Waste & Sanitation</option>
-                <option value="Water Supply & Sewerage Board">Water & Sewerage</option>
-                <option value="Electrical & Street Lighting Wing">Electrical & Lighting</option>
-              </select>
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-base font-bold">Weight Over Time (kg)</h3>
+              <span class="text-xs text-primary font-bold">↓ 1.2 kg this month</span>
+            </div>
+            <canvas id="chart-weight"></canvas>
+          </div>
+
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-base font-bold">Workout Duration & Consistency (mins)</h3>
+              <span class="text-xs text-accent font-bold">5 Sessions / Week</span>
+            </div>
+            <canvas id="chart-workout-freq"></canvas>
+          </div>
+
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-base font-bold">Calories Burned Progression</h3>
+              <span class="text-xs text-muted">Weekly Output</span>
+            </div>
+            <canvas id="chart-calories"></canvas>
+          </div>
+
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-base font-bold">Strength Progression (Bench vs Squat)</h3>
+              <div class="flex gap-3 text-xs">
+                <span class="text-primary font-bold">• Bench Press</span>
+                <span class="text-secondary font-bold">• Squat</span>
+              </div>
+            </div>
+            <canvas id="chart-strength"></canvas>
+          </div>
+        </div>
+
+        <!-- Body Measurements & Personal Records Split -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Body Measurements Table -->
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="text-lg font-bold">Body Measurements</h3>
+                <span class="text-xs text-muted">Circumference and body fat changes</span>
+              </div>
+              <button type="button" class="btn-primary btn-sm" onclick="FitnexaApp.openAddMeasurementModal()">
+                + Add Measurement
+              </button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead>
+                  <tr class="text-xs uppercase text-muted border-b border-glass">
+                    <th class="pb-2">Date</th>
+                    <th class="pb-2">Weight</th>
+                    <th class="pb-2">Diff</th>
+                    <th class="pb-2">Waist</th>
+                    <th class="pb-2">Body Fat</th>
+                    <th class="pb-2">Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="measurements-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Personal Records -->
+          <div class="card-glass">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="text-lg font-bold">Personal Records (PRs)</h3>
+                <span class="text-xs text-muted">Lifetime best lifts and endurance holds</span>
+              </div>
+              <button type="button" class="btn-primary btn-sm" onclick="FitnexaApp.openAddPRModal()">
+                + Update PR
+              </button>
+            </div>
+            <div id="prs-grid-container" class="grid grid-cols-2 gap-3"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 8: RECOVERY & INTERACTIVE BODY MAP -->
+      <!-- ========================================== -->
+      <section id="view-recovery" class="view-panel">
+        <div class="mb-6">
+          <h1 class="text-3xl font-extrabold">Muscle Map & Recovery</h1>
+          <p class="text-muted text-sm mt-1">Interactive anatomical muscle map showing real-time recovery status</p>
+        </div>
+
+        <div class="muscle-map-layout mb-8">
+          <!-- Vector Body Graphic -->
+          <div class="card-glass flex flex-col items-center">
+            <div id="muscle-map-container" class="w-full"></div>
+          </div>
+
+          <!-- Selected Muscle Inspection Card -->
+          <div id="muscle-details-container"></div>
+        </div>
+
+        <!-- Full Muscle Recovery Dashboard -->
+        <div>
+          <h3 class="text-xl font-bold mb-3">All Muscle Groups Status</h3>
+          <div id="recovery-dashboard-container"></div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 9: CHALLENGES -->
+      <!-- ========================================== -->
+      <section id="view-challenges" class="view-panel">
+        <div class="mb-6">
+          <h1 class="text-3xl font-extrabold">Fitness Challenges</h1>
+          <p class="text-muted text-sm mt-1">Join structured community and personal challenges to earn XP and rare badges</p>
+        </div>
+        <div id="challenges-grid-container" class="workout-cards-grid"></div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 10: COMMUNITY -->
+      <!-- ========================================== -->
+      <section id="view-community" class="view-panel">
+        <div class="mb-6">
+          <h1 class="text-3xl font-extrabold">FITNEXA Community</h1>
+          <p class="text-muted text-sm mt-1">Connect with fellow athletes, share PR breakthroughs, and stay motivated</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <!-- Feed Item 1 -->
+            <div class="card-glass">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="user-avatar-circle">M</div>
+                <div>
+                  <div class="font-bold text-sm">Marcus Vance</div>
+                  <div class="text-micro text-muted">2 hours ago • Calisthenics Beast</div>
+                </div>
+                <span class="badge-mini text-primary ml-auto">🎉 New PR</span>
+              </div>
+              <p class="text-sm">Unlocked my first strict Bar Muscle-up today after 3 weeks on the progression tree! Huge shoutout to the coach cues.</p>
+              <div class="mt-3 pt-2 border-t border-glass flex gap-4 text-xs text-muted">
+                <button type="button" class="btn-ghost btn-sm p-0" onclick="this.innerHTML = '🔥 25 High-Fives'">🔥 24 High-Fives</button>
+                <button type="button" class="btn-ghost btn-sm p-0">💬 6 Comments</button>
+              </div>
             </div>
 
-            <button class="btn btn-secondary" onclick="exportComplaintsCsv()">
-              📥 Export Grievance CSV
+            <!-- Feed Item 2 -->
+            <div class="card-glass">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="user-avatar-circle" style="background: linear-gradient(135deg, #10b981, #06b6d4);">S</div>
+                <div>
+                  <div class="font-bold text-sm">Sarah Jenkins</div>
+                  <div class="text-micro text-muted">5 hours ago • Yoga Journey</div>
+                </div>
+                <span class="badge-mini text-accent ml-auto">🧘 Milestone</span>
+              </div>
+              <p class="text-sm">Completed Day 14 of the 30-Day Zen Yoga Flow. My chronic lower back stiffness is completely gone.</p>
+              <div class="mt-3 pt-2 border-t border-glass flex gap-4 text-xs text-muted">
+                <button type="button" class="btn-ghost btn-sm p-0" onclick="this.innerHTML = '👏 19 High-Fives'">👏 18 High-Fives</button>
+                <button type="button" class="btn-ghost btn-sm p-0">💬 3 Comments</button>
+              </div>
+            </div>
+
+            <!-- Feed Item 3 -->
+            <div class="card-glass">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="user-avatar-circle">A</div>
+                <div>
+                  <div class="font-bold text-sm">Alex (You)</div>
+                  <div class="text-micro text-muted">Yesterday • Push Day</div>
+                </div>
+                <span class="badge-mini text-primary ml-auto">⚡ PR Smashed</span>
+              </div>
+              <p class="text-sm">Hit 95 kg on Bench Press for 4 reps! Progressive overload and hitting daily protein targets makes all the difference.</p>
+              <div class="mt-3 pt-2 border-t border-glass flex gap-4 text-xs text-muted">
+                <span class="text-primary font-bold">🔥 32 High-Fives</span>
+                <span>💬 9 Comments</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Community Leaderboard -->
+          <div class="card-glass h-fit">
+            <h3 class="text-base font-bold mb-3">Weekly XP Leaderboard</h3>
+            <div class="space-y-2 text-xs">
+              <div class="p-2 card-glass flex justify-between items-center">
+                <span>🥇 Liam Vance</span>
+                <span class="font-mono font-bold text-accent">2,450 XP</span>
+              </div>
+              <div class="p-2 card-glass flex justify-between items-center border-l-2 border-primary">
+                <span>🥈 Alex (You)</span>
+                <span class="font-mono font-bold text-primary">1,240 XP</span>
+              </div>
+              <div class="p-2 card-glass flex justify-between items-center">
+                <span>🥉 Elena Rostova</span>
+                <span class="font-mono font-bold">1,180 XP</span>
+              </div>
+              <div class="p-2 card-glass flex justify-between items-center">
+                <span>4. Daniel Miller</span>
+                <span class="font-mono font-bold">960 XP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 11: USER PROFILE -->
+      <!-- ========================================== -->
+      <section id="view-profile" class="view-panel">
+        <div class="card-glass p-6 mb-8 flex justify-between items-center flex-wrap gap-4">
+          <div class="flex items-center gap-4">
+            <div class="user-avatar-circle text-2xl" style="width: 64px; height: 64px;">A</div>
+            <div>
+              <h1 id="prof-name-display" class="text-2xl font-extrabold">Alex</h1>
+              <div class="text-xs text-muted mt-1 flex gap-2">
+                <span id="prof-level-display" class="font-bold text-primary">Level 12 Athlete</span> • 
+                <span id="prof-goal-display">Build Muscle</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button type="button" class="btn-primary btn-sm font-bold" onclick="FitnexaApp.openEditProfileModal()">
+              Edit Profile
+            </button>
+            <button type="button" class="btn-secondary btn-sm" onclick="FitnexaApp.openOnboardingWizard()">
+              Retake Onboarding
             </button>
           </div>
+        </div>
 
-          <div class="admin-table-container">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Ticket ID</th>
-                  <th>Grievance Details</th>
-                  <th>Assigned Dept</th>
-                  <th>Current Status</th>
-                  <th>Severity</th>
-                  <th>Field Officer</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="adminTableBody"></tbody>
-            </table>
+        <!-- Metrics Strip -->
+        <div class="summary-stats-grid mb-8">
+          <div class="card-glass text-center">
+            <span class="text-xs text-muted uppercase">Experience</span>
+            <div id="prof-xp-display" class="text-2xl font-bold mt-1 text-accent">1,240 XP</div>
           </div>
+          <div class="card-glass text-center">
+            <span class="text-xs text-muted uppercase">Current Streak</span>
+            <div id="prof-streak-display" class="text-2xl font-bold mt-1 text-primary">7 Days</div>
+          </div>
+          <div class="card-glass text-center">
+            <span class="text-xs text-muted uppercase">Body Weight</span>
+            <div id="prof-weight-display" class="text-2xl font-bold mt-1">72.4 kg</div>
+          </div>
+          <div class="card-glass text-center">
+            <span class="text-xs text-muted uppercase">Height</span>
+            <div id="prof-height-display" class="text-2xl font-bold mt-1">180 cm</div>
+          </div>
+          <div class="card-glass text-center">
+            <span class="text-xs text-muted uppercase">Weekly Frequency</span>
+            <div id="prof-freq-display" class="text-2xl font-bold mt-1">5 days/wk</div>
+          </div>
+        </div>
+
+        <!-- Badges Showcase -->
+        <div>
+          <h2 class="text-xl font-bold mb-4">Badges & Accomplishments</h2>
+          <div id="prof-badges-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
         </div>
       </section>
+    </main>
 
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav class="mobile-bottom-nav">
+      <a href="#dashboard" class="bottom-nav-item active" data-route="dashboard" onclick="FitnexaApp.navigateTo('dashboard')">
+        <span class="text-lg">📊</span>
+        <span>Home</span>
+      </a>
+      <a href="#coach" class="bottom-nav-item" data-route="coach" onclick="FitnexaApp.navigateTo('coach')">
+        <span class="text-lg">🤖</span>
+        <span>Coach</span>
+      </a>
+      <a href="#workouts" class="bottom-nav-item" data-route="workouts" onclick="FitnexaApp.navigateTo('workouts')">
+        <span class="text-lg">🏋️</span>
+        <span>Workout</span>
+      </a>
+      <a href="#progress" class="bottom-nav-item" data-route="progress" onclick="FitnexaApp.navigateTo('progress')">
+        <span class="text-lg">📈</span>
+        <span>Progress</span>
+      </a>
+      <a href="#profile" class="bottom-nav-item" data-route="profile" onclick="FitnexaApp.navigateTo('profile')">
+        <span class="text-lg">👤</span>
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- MOBILE DRAWER MENU -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="flex justify-between items-center mb-6">
+      <div class="brand-title">FITNEXA <span class="text-primary">AI</span></div>
+      <button type="button" class="btn-icon" onclick="FitnexaApp.closeMobileMenu()">✕</button>
     </div>
-  </main>
-
-  <!-- ============================================================== -->
-  <!-- MODAL: SUBMISSION SUCCESS & TICKET CONFIRMATION                -->
-  <!-- ============================================================== -->
-  <div id="successModal" class="modal-backdrop">
-    <div class="modal-dialog" style="max-width: 520px; text-align: center;">
-      <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); color: var(--emerald); font-size: 32px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-        ✓
-      </div>
-      <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 6px;">Civic Grievance Registered!</h3>
-      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
-        Your issue was processed by NagarikAI and forwarded directly to the responsible municipal department.
-      </p>
-
-      <div style="background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; margin-bottom: 20px; text-align: left;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: var(--text-dim); font-size: 0.85rem;">Tracking ID:</span>
-          <span id="successTicketId" style="font-weight: 800; font-family: monospace; color: var(--primary);">CIVIC-1007</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: var(--text-dim); font-size: 0.85rem;">Assigned Wing:</span>
-          <span id="successDept" style="font-weight: 700; color: #fff;">Roads & Pavements</span>
-        </div>
-        <div style="display: flex; justify-content: space-between;">
-          <span style="color: var(--text-dim); font-size: 0.85rem;">Statutory SLA:</span>
-          <span id="successSla" style="font-weight: 700; color: var(--amber);">48 Hours</span>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 10px;">
-        <button class="btn btn-secondary" style="flex:1;" onclick="closeModal('successModal')">Close</button>
-        <button class="btn btn-primary" style="flex:1;" onclick="finishSubmissionAndTrack()">Track Live Status &rarr;</button>
-      </div>
+    <nav class="space-y-3 flex flex-col text-lg font-bold">
+      <a href="#dashboard" onclick="FitnexaApp.navigateTo('dashboard')">📊 Dashboard</a>
+      <a href="#coach" onclick="FitnexaApp.navigateTo('coach')">🤖 AI Coach</a>
+      <a href="#workouts" onclick="FitnexaApp.navigateTo('workouts')">🏋️ Workouts</a>
+      <a href="#exercises" onclick="FitnexaApp.navigateTo('exercises')">📖 Exercise Library</a>
+      <a href="#nutrition" onclick="FitnexaApp.navigateTo('nutrition')">🥗 Nutrition</a>
+      <a href="#progress" onclick="FitnexaApp.navigateTo('progress')">📈 Progress & PRs</a>
+      <a href="#recovery" onclick="FitnexaApp.navigateTo('recovery')">🧬 Body Map & Recovery</a>
+      <a href="#challenges" onclick="FitnexaApp.navigateTo('challenges')">🎯 Challenges</a>
+      <a href="#community" onclick="FitnexaApp.navigateTo('community')">👥 Community</a>
+      <a href="#profile" onclick="FitnexaApp.navigateTo('profile')">👤 Profile</a>
+    </nav>
+    <div class="mt-auto pt-6 border-t border-glass flex flex-col gap-2">
+      <button type="button" class="btn-primary w-full" onclick="FitnexaApp.closeMobileMenu(); FitnexaApp.openSettingsModal()">
+        ⚙️ Settings & API Keys
+      </button>
+      <button type="button" class="btn-outline-danger w-full text-center flex items-center justify-center gap-2" onclick="FitnexaApp.closeMobileMenu(); FitnexaApp.logout()">
+        🚪 Log Out of Account
+      </button>
     </div>
   </div>
 
-  <!-- ============================================================== -->
-  <!-- MODAL: TICKET TIMELINE & RESOLUTION DETAILS                    -->
-  <!-- ============================================================== -->
-  <div id="ticketDetailModal" class="modal-backdrop">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 id="detailModalTitle" style="font-size: 1.15rem; font-weight: 700;">Grievance Details</h3>
-        <button class="modal-close-btn" onclick="closeModal('ticketDetailModal')">&times;</button>
-      </div>
-      <div id="detailModalBody"></div>
+  <!-- ========================================== -->
+  <!-- MODAL: WORKOUT COMPLETE CELEBRATION -->
+  <!-- ========================================== -->
+  <div id="workout-complete-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div id="workout-complete-body"></div>
     </div>
   </div>
 
-  <!-- ============================================================== -->
-  <!-- MODAL: ADMIN ASSIGN OFFICER & UPDATE STATUS                    -->
-  <!-- ============================================================== -->
-  <div id="adminActionModal" class="modal-backdrop">
-    <div class="modal-dialog" style="max-width: 500px;">
-      <div class="modal-header">
-        <h3 style="font-size: 1.15rem; font-weight: 700;">Assign Field Team & Update Status</h3>
-        <button class="modal-close-btn" onclick="closeModal('adminActionModal')">&times;</button>
-      </div>
-      <div>
-        <input type="hidden" id="modalTicketId">
-        <div class="form-group">
-          <label class="form-label">Workflow Status</label>
-          <select id="actionStatusSelect" class="form-control">
-            <option value="Assigned">Assigned to Officer</option>
-            <option value="In Progress">In Progress (Field Work Active)</option>
-            <option value="Reported">Under Municipal Triage</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Field Engineer / Inspector Name</label>
-          <input type="text" id="actionOfficerName" class="form-control" value="Er. M. Rajender">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Role / Designation</label>
-          <input type="text" id="actionOfficerRole" class="form-control" value="Ward 104 Road Inspector">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Contact Mobile</label>
-          <input type="tel" id="actionOfficerPhone" class="form-control" value="+91 98490 55442">
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-          <button class="btn btn-secondary" style="flex:1;" onclick="closeModal('adminActionModal')">Cancel</button>
-          <button class="btn btn-primary" style="flex:1;" onclick="submitAdminAction()">Save & Dispatch</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- ========================================== -->
+  <!-- MODAL: AI WORKOUT PLANNER WIZARD -->
+  <!-- ========================================== -->
+  <div id="ai-wizard-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaCoach.closeWorkoutWizard()">✕</button>
+      <h2 class="text-2xl font-bold mb-1">Personalized Workout Builder</h2>
+      <p class="text-xs text-muted mb-4">Powered by FITNEXA AI with evidence-based exercise selection.</p>
 
-  <!-- ============================================================== -->
-  <!-- MODAL: RESOLVE & ATTACH PROOF PHOTO                            -->
-  <!-- ============================================================== -->
-  <div id="resolveProofModal" class="modal-backdrop">
-    <div class="modal-dialog" style="max-width: 540px;">
-      <div class="modal-header">
-        <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--emerald);">
-          ✓ Complete Resolution & Attach Proof
-        </h3>
-        <button class="modal-close-btn" onclick="closeModal('resolveProofModal')">&times;</button>
-      </div>
-      <div>
-        <input type="hidden" id="resolveTicketId">
-        <div style="margin-bottom: 16px;">
-          <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 6px;">Reported Hazard Photo:</div>
-          <img id="resolveBeforeImg" src="" style="width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Resolution Proof Photo URL (Repaired Site)</label>
-          <input type="text" id="resolveProofImgUrl" class="form-control" value="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Engineer Completion Notes</label>
-          <textarea id="resolveNotes" class="form-control" rows="3"></textarea>
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-          <button class="btn btn-secondary" style="flex:1;" onclick="closeModal('resolveProofModal')">Cancel</button>
-          <button class="btn btn-success" style="flex:1;" onclick="submitResolutionProof()">Verify & Mark Resolved</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================== -->
-  <!-- MODAL: LIVE CAMERA STREAM                                      -->
-  <!-- ============================================================== -->
-  <div id="cameraModal" class="modal-backdrop">
-    <div class="modal-dialog" style="max-width: 500px; text-align: center;">
-      <div class="modal-header">
-        <h3 style="font-size: 1.15rem; font-weight: 700;">Live Camera Capture</h3>
-        <button class="modal-close-btn" onclick="closeCameraModal()">&times;</button>
-      </div>
-      <video id="cameraFeed" autoplay playsinline style="width: 100%; height: 320px; object-fit: cover; border-radius: var(--radius-md); background: #000;"></video>
-      <div style="display: flex; gap: 10px; margin-top: 16px;">
-        <button class="btn btn-secondary" style="flex:1;" onclick="closeCameraModal()">Cancel</button>
-        <button class="btn btn-primary" style="flex:1;" onclick="captureCameraSnapshot()">📸 Snap Photo</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================== -->
-  <!-- MODAL: SUPABASE DATABASE CONFIGURATION & SQL SCHEMA            -->
-  <!-- ============================================================== -->
-  <div id="supabaseModal" class="modal-backdrop">
-    <div class="modal-dialog" style="max-width: 620px;">
-      <div class="modal-header">
-        <h3 style="font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-          <span>⚡</span> Supabase Cloud PostgreSQL Integration
-        </h3>
-        <button class="modal-close-btn" onclick="closeModal('supabaseModal')">&times;</button>
-      </div>
-      <div>
-        <div id="supabaseBanner" style="padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.88rem; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3);">
-          <span id="supabaseIndicatorIcon">ℹ️</span>
-          <span id="supabaseStatusMessage">Checking connection status...</span>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Supabase Project URL</label>
-          <input type="text" id="supabaseUrlInput" class="form-control" placeholder="https://your-project.supabase.co">
-          <div style="font-size: 0.76rem; color: var(--text-dim); margin-top: 4px;">Found in Supabase Dashboard -> Project Settings -> API</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Supabase Anon (Public) Key</label>
-          <input type="password" id="supabaseKeyInput" class="form-control" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
-          <div style="font-size: 0.76rem; color: var(--text-dim); margin-top: 4px;">Found in Project Settings -> API -> Project API keys (anon / public)</div>
-        </div>
-
-        <div style="display: flex; gap: 10px; margin: 16px 0;">
-          <button type="button" class="btn btn-primary" style="flex: 1;" onclick="saveSupabaseConfig()">
-            ⚡ Connect to Supabase
-          </button>
-          <button type="button" class="btn btn-secondary" onclick="checkSupabaseStatus()">
-            🔄 Test Connection
-          </button>
-        </div>
-
-        <details style="background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px; margin-top: 14px;">
-          <summary style="font-weight: 700; font-size: 0.88rem; cursor: pointer; color: #93c5fd;">
-            📋 View 1-Click Supabase SQL Schema (Run in Supabase SQL Editor)
-          </summary>
-          <div style="margin-top: 10px;">
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
-              Copy the code below, go to your <strong>Supabase Dashboard &rarr; SQL Editor</strong>, paste and click <strong>Run</strong>:
-            </p>
-            <pre style="background: #000; color: #38bdf8; padding: 12px; border-radius: var(--radius-sm); font-size: 0.75rem; overflow-x: auto; max-height: 180px; font-family: monospace;">CREATE TABLE IF NOT EXISTS public.complaints (
-    id TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    category TEXT NOT NULL,
-    category_label TEXT,
-    description TEXT,
-    severity TEXT DEFAULT 'Medium',
-    department TEXT NOT NULL,
-    status TEXT DEFAULT 'Reported',
-    location JSONB NOT NULL DEFAULT '{}'::jsonb,
-    image_url TEXT,
-    resolution_proof JSONB,
-    upvotes INTEGER DEFAULT 1,
-    reported_at TIMESTAMPTZ DEFAULT NOW(),
-    sla_hours INTEGER DEFAULT 48,
-    assigned_officer JSONB,
-    citizen_contact JSONB,
-    timeline JSONB DEFAULT '[]'::jsonb
-);
-
-ALTER TABLE public.complaints ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow public read" ON public.complaints FOR SELECT USING (true);
-CREATE POLICY "Allow public insert" ON public.complaints FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow public update" ON public.complaints FOR UPDATE USING (true);</pre>
+      <form onsubmit="event.preventDefault(); FitnexaCoach.submitWorkoutWizard();" class="space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Age</label>
+            <input type="number" id="wiz-age" class="w-full" value="26">
           </div>
-        </details>
+          <div>
+            <label class="text-xs text-muted block mb-1">Gender</label>
+            <select id="wiz-gender" class="w-full">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Non-binary">Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Height (cm)</label>
+            <input type="number" id="wiz-height" class="w-full" value="180">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Weight (kg)</label>
+            <input type="number" id="wiz-weight" class="w-full" value="72">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Main Goal</label>
+            <select id="wiz-goal" class="w-full">
+              <option value="Build Muscle">Build Muscle</option>
+              <option value="Lose Fat">Lose Fat</option>
+              <option value="Strength">Max Strength</option>
+              <option value="Endurance">Endurance</option>
+              <option value="Flexibility">Flexibility</option>
+              <option value="General Fitness">General Fitness</option>
+              <option value="Athletic Performance">Athletic Performance</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Fitness Level</label>
+            <select id="wiz-level" class="w-full">
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate" selected>Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Days / Week</label>
+            <select id="wiz-days" class="w-full">
+              <option value="2">2 Days</option>
+              <option value="3">3 Days</option>
+              <option value="4">4 Days</option>
+              <option value="5" selected>5 Days</option>
+              <option value="6">6 Days</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Session Duration</label>
+            <select id="wiz-duration" class="w-full">
+              <option value="15">15 mins</option>
+              <option value="30">30 mins</option>
+              <option value="45" selected>45 mins</option>
+              <option value="60">60 mins</option>
+              <option value="90">90 mins</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Equipment Available</label>
+            <select id="wiz-equipment" class="w-full">
+              <option value="Full Gym">Full Gym</option>
+              <option value="Dumbbells Only">Dumbbells Only</option>
+              <option value="Bodyweight">Bodyweight / Calisthenics</option>
+              <option value="Resistance Bands">Resistance Bands</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Preferred Style</label>
+            <select id="wiz-style" class="w-full">
+              <option value="Gym">Gym Resistance</option>
+              <option value="Calisthenics">Calisthenics</option>
+              <option value="Yoga">Yoga & Mobility</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-generate-plan" class="btn-primary w-full btn-lg font-bold mt-4">
+          ⚡ Generate My Workout Plan
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: GENERATED WORKOUT PLAN PREVIEW -->
+  <!-- ========================================== -->
+  <div id="generated-plan-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaCoach.closeGeneratedPlanModal()">✕</button>
+      <div id="generated-plan-body"></div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: STANDALONE REST TIMER TOOL -->
+  <!-- ========================================== -->
+  <div id="standalone-timer-modal" class="modal-overlay">
+    <div class="modal-box text-center">
+      <button type="button" class="modal-close-btn" onclick="FitnexaPlayer.closeStandaloneTimer()">✕</button>
+      <h3 class="text-lg font-bold">Rest & Interval Timer</h3>
+      <p class="text-xs text-muted mt-1">Take structured rests between your heavy working sets</p>
+
+      <div class="my-6">
+        <div id="standalone-timer-digits" class="font-mono text-5xl font-extrabold text-gradient">01:00</div>
+      </div>
+
+      <div class="rest-presets-grid max-w-xs mx-auto mb-6">
+        <button type="button" class="btn-preset" onclick="FitnexaPlayer.resetStandaloneTimer(30)">30s</button>
+        <button type="button" class="btn-preset" onclick="FitnexaPlayer.resetStandaloneTimer(45)">45s</button>
+        <button type="button" class="btn-preset" onclick="FitnexaPlayer.resetStandaloneTimer(60)">60s</button>
+        <button type="button" class="btn-preset" onclick="FitnexaPlayer.resetStandaloneTimer(90)">90s</button>
+        <button type="button" class="btn-preset" onclick="FitnexaPlayer.resetStandaloneTimer(120)">2m</button>
+        <button type="button" class="btn-preset" onclick="FitnexaPlayer.resetStandaloneTimer(180)">3m</button>
+      </div>
+
+      <div class="flex justify-center gap-3">
+        <button type="button" id="btn-standalone-toggle" class="btn-primary btn-lg font-bold px-8" onclick="FitnexaPlayer.toggleStandaloneTimer()">
+          ▶️ Start
+        </button>
+        <button type="button" class="btn-secondary btn-lg" onclick="FitnexaPlayer.resetStandaloneTimer()">
+          🔄 Reset
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- ============================================================== -->
-  <!-- NOTIFICATION FLYOUT DRAWER                                     -->
-  <!-- ============================================================== -->
-  <div id="notificationFlyout" style="position: fixed; top: 68px; right: 24px; width: 340px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); z-index: 1500; display: none; overflow: hidden;">
-    <div style="padding: 14px 16px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
-      <span style="font-weight: 700; font-size: 0.95rem;">Civic Alert Dispatcher</span>
-      <button onclick="toggleNotificationCenter()" style="background:none; border:none; color:var(--text-dim); cursor:pointer;">&times;</button>
+  <!-- ========================================== -->
+  <!-- MODAL: GENERIC DETAIL (EXERCISE / WORKOUT) -->
+  <!-- ========================================== -->
+  <div id="generic-detail-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaApp.closeGenericModal()">✕</button>
+      <div id="generic-detail-body"></div>
     </div>
-    <div id="notificationList" style="max-height: 380px; overflow-y: auto;"></div>
   </div>
 
-  <!-- Toast Notification Container -->
-  <div id="toastContainer" class="toast-container"></div>
+  <!-- ========================================== -->
+  <!-- MODAL: ADD FOOD ITEM -->
+  <!-- ========================================== -->
+  <div id="add-food-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaApp.closeAddFoodModal()">✕</button>
+      <h2 class="text-xl font-bold mb-1">Log Food Item</h2>
+      <p class="text-xs text-muted mb-4">Choose from quick fitness suggestions or enter custom values</p>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+      <div class="mb-4">
+        <label class="text-xs text-muted block mb-1">Meal Window</label>
+        <select id="food-meal-type-select" class="w-full">
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+          <option value="snacks">Snacks & Shakes</option>
+        </select>
+      </div>
 
-  <!-- Application Modules -->
-  <script src="js/i18n.js"></script>
-  <script src="js/voice.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/ai-vision.js"></script>
-  <script src="js/admin.js"></script>
+      <div class="mb-4">
+        <label class="text-xs text-muted block mb-2">Quick Fitness Suggestions</label>
+        <div id="popular-food-suggestions" class="grid grid-cols-2 gap-2"></div>
+      </div>
+
+      <form onsubmit="event.preventDefault(); FitnexaApp.submitFoodLog();" class="space-y-3 pt-3 border-t border-glass">
+        <div>
+          <label class="text-xs text-muted block mb-1">Food / Meal Name</label>
+          <input type="text" id="food-name-input" class="w-full" placeholder="e.g. 2 Boiled Eggs & Whole Wheat Toast" required>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2">
+          <div>
+            <label class="text-xs text-muted block mb-1">Calories</label>
+            <input type="number" id="food-cal-input" class="w-full" placeholder="kcal" required>
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Protein (g)</label>
+            <input type="number" id="food-prot-input" class="w-full" placeholder="g">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Carbs (g)</label>
+            <input type="number" id="food-carb-input" class="w-full" placeholder="g">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Fat (g)</label>
+            <input type="number" id="food-fat-input" class="w-full" placeholder="g">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary w-full font-bold mt-4">
+          ✓ Save to Meal Log
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ADD BODY MEASUREMENT -->
+  <!-- ========================================== -->
+  <div id="add-measurement-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaApp.closeAddMeasurementModal()">✕</button>
+      <h2 class="text-xl font-bold mb-1">Record Body Measurements</h2>
+      <p class="text-xs text-muted mb-4">Track muscular hypertrophy and waist reduction over time</p>
+
+      <form onsubmit="event.preventDefault(); FitnexaApp.submitMeasurement();" class="space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Weight (kg) *</label>
+            <input type="number" step="0.1" id="m-weight" class="w-full" required placeholder="e.g. 72.4">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Body Fat (%)</label>
+            <input type="number" step="0.1" id="m-bf" class="w-full" placeholder="e.g. 15.2">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Chest Circumference (cm)</label>
+            <input type="number" step="0.5" id="m-chest" class="w-full" placeholder="e.g. 102">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Waist Circumference (cm)</label>
+            <input type="number" step="0.5" id="m-waist" class="w-full" placeholder="e.g. 82">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Arms / Biceps (cm)</label>
+            <input type="number" step="0.5" id="m-arms" class="w-full" placeholder="e.g. 37">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Thighs (cm)</label>
+            <input type="number" step="0.5" id="m-thighs" class="w-full" placeholder="e.g. 58">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs text-muted block mb-1">Notes</label>
+          <input type="text" id="m-notes" class="w-full" placeholder="e.g. Morning weigh-in fasted">
+        </div>
+
+        <button type="submit" class="btn-primary w-full font-bold mt-4">
+          ✓ Save Measurement Record
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ADD / UPDATE PERSONAL RECORD -->
+  <!-- ========================================== -->
+  <div id="add-pr-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaApp.closeAddPRModal()">✕</button>
+      <h2 class="text-xl font-bold mb-1">Update Personal Record</h2>
+      <p class="text-xs text-muted mb-4">Lock in your best performance lift or repetition max</p>
+
+      <form onsubmit="event.preventDefault(); FitnexaApp.submitPR();" class="space-y-3">
+        <div>
+          <label class="text-xs text-muted block mb-1">Exercise Name</label>
+          <input type="text" id="pr-exercise-name" class="w-full" placeholder="e.g. Barbell Bench Press" required>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="text-xs text-muted block mb-1">Current PR</label>
+            <input type="number" step="0.5" id="pr-current-val" class="w-full" placeholder="e.g. 100" required>
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Previous PR</label>
+            <input type="number" step="0.5" id="pr-prev-val" class="w-full" placeholder="e.g. 95">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Unit</label>
+            <select id="pr-unit-val" class="w-full">
+              <option value="kg">kg</option>
+              <option value="reps">reps</option>
+              <option value="sec">sec</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary w-full font-bold mt-4">
+          🎉 Save Record & Celebrate
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: BMI & FITNESS CALCULATOR -->
+  <!-- ========================================== -->
+  <div id="bmi-calculator-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaApp.closeBmiCalculator()">✕</button>
+      <h2 class="text-xl font-bold mb-1">BMI & Caloric Needs Calculator</h2>
+      <p class="text-xs text-muted mb-4">Scientific estimates via the Mifflin-St Jeor formula</p>
+
+      <div class="space-y-3">
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="text-xs text-muted block mb-1">Height (cm)</label>
+            <input type="number" id="calc-height" class="w-full" oninput="FitnexaApp.computeBmi()">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Weight (kg)</label>
+            <input type="number" id="calc-weight" class="w-full" oninput="FitnexaApp.computeBmi()">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Age</label>
+            <input type="number" id="calc-age" class="w-full" oninput="FitnexaApp.computeBmi()">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Gender</label>
+            <select id="calc-gender" class="w-full" onchange="FitnexaApp.computeBmi()">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Activity Factor</label>
+            <select id="calc-activity" class="w-full" onchange="FitnexaApp.computeBmi()">
+              <option value="1.2">Sedentary (desk job)</option>
+              <option value="1.375">Light (1-2 days/wk)</option>
+              <option value="1.55" selected>Moderate (3-5 days/wk)</option>
+              <option value="1.725">Heavy (6-7 days/wk)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Calculated Results Cards -->
+        <div class="summary-stats-grid my-4">
+          <div class="stat-card card-glass text-center">
+            <span class="text-xs text-muted">BMI Index</span>
+            <div id="calc-res-bmi" class="text-2xl font-extrabold text-accent">22.3</div>
+            <div id="calc-res-cat" class="badge-status status-ready mt-1">Normal Weight</div>
+          </div>
+          <div class="stat-card card-glass text-center">
+            <span class="text-xs text-muted">Basal Metabolic Rate</span>
+            <div id="calc-res-bmr" class="text-2xl font-extrabold text-primary">1,720 kcal</div>
+            <span class="text-xs text-muted">At complete rest</span>
+          </div>
+        </div>
+
+        <div class="card-glass p-3 space-y-2 text-xs">
+          <div class="flex justify-between">
+            <span class="text-muted">Maintenance (Hold Weight):</span>
+            <strong id="calc-res-maint">2,400 kcal/day</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-muted">Fat Loss Deficit (-400 kcal):</span>
+            <strong id="calc-res-cut" class="text-secondary">2,000 kcal/day</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-muted">Lean Muscle Surplus (+300 kcal):</span>
+            <strong id="calc-res-bulk" class="text-primary">2,700 kcal/day</strong>
+          </div>
+        </div>
+
+        <div class="text-xs text-muted p-2 card-glass border-l-4 border-yellow-500">
+          ⚠️ <strong>Medical Disclaimer:</strong> These figures represent nutritional guidelines and mathematical estimations. They are not intended as medical advice or disease diagnosis.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: EDIT PROFILE -->
+  <!-- ========================================== -->
+  <div id="edit-profile-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaApp.closeEditProfileModal()">✕</button>
+      <h2 class="text-xl font-bold mb-1">Edit Profile</h2>
+      <p class="text-xs text-muted mb-4">Update your name, targets, and body metrics</p>
+
+      <form onsubmit="event.preventDefault(); FitnexaApp.submitEditProfile();" class="space-y-3">
+        <div>
+          <label class="text-xs text-muted block mb-1">Name</label>
+          <input type="text" id="edit-prof-name" class="w-full" required>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-muted block mb-1">Primary Goal</label>
+            <select id="edit-prof-goal" class="w-full">
+              <option value="Build Muscle">Build Muscle</option>
+              <option value="Lose Fat">Lose Fat</option>
+              <option value="Strength">Max Strength</option>
+              <option value="Endurance">Endurance</option>
+              <option value="Flexibility">Flexibility</option>
+              <option value="General Fitness">General Fitness</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Fitness Level</label>
+            <select id="edit-prof-level" class="w-full">
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="text-xs text-muted block mb-1">Weight (kg)</label>
+            <input type="number" step="0.1" id="edit-prof-weight" class="w-full">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Height (cm)</label>
+            <input type="number" id="edit-prof-height" class="w-full">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Days / Wk</label>
+            <input type="number" min="1" max="7" id="edit-prof-days" class="w-full">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary w-full font-bold mt-4">
+          ✓ Save Profile Changes
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: SETTINGS & BACKEND CONFIG -->
+  <!-- ========================================== -->
+  <div id="settings-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close-btn" onclick="FitnexaApp.closeSettingsModal()">✕</button>
+      <h2 class="text-xl font-bold mb-1">Settings & Preferences</h2>
+      <p class="text-xs text-muted mb-4">Themes, density, audio cues, Google Gemini & Supabase setup</p>
+
+      <form onsubmit="event.preventDefault(); FitnexaApp.saveSettingsForm();" class="space-y-4">
+        <!-- Appearance Settings -->
+        <div class="card-glass p-3 space-y-3">
+          <span class="text-xs font-bold uppercase text-primary">Display & Sound</span>
+          
+          <div class="flex justify-between items-center">
+            <span class="text-sm font-semibold">UI Layout Density</span>
+            <select id="set-density-select" class="text-xs">
+              <option value="comfortable">Comfortable</option>
+              <option value="compact">Compact</option>
+            </select>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm font-semibold">Sound FX & Audio Beeps</span>
+            <input type="checkbox" id="set-sound-toggle" checked style="width: 20px; height: 20px;">
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm font-semibold">Cursor Follower Glow (Desktop)</span>
+            <input type="checkbox" id="set-cursor-toggle" checked style="width: 20px; height: 20px;">
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span class="text-sm font-semibold">Reduced Animation Mode</span>
+            <input type="checkbox" id="set-motion-toggle" style="width: 20px; height: 20px;">
+          </div>
+        </div>
+
+        <!-- Google Gemini AI Key Setup -->
+        <div class="card-glass p-3 space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold uppercase text-accent flex items-center gap-1">
+              <span>🤖</span> Google Gemini AI Integration
+            </span>
+            <span id="gemini-status-tag" class="badge-mini">Backend Ready</span>
+          </div>
+          <p class="text-xs text-muted">
+            Connect Google Gemini (supports <code>gemini-2.0-flash</code>, <code>gemini-1.5-flash</code>) for live personalized coaching.
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-primary underline ml-1 font-semibold">Get Free API Key ↗</a>
+          </p>
+          <div class="flex gap-2">
+            <div class="relative flex-1">
+              <input type="password" id="set-gemini-key" class="w-full text-xs font-mono pr-8" placeholder="AIzaSy...">
+              <button type="button" class="btn-ghost absolute right-1 top-1 py-1 px-2 text-xs" onclick="FitnexaApp.togglePasswordVisibility('set-gemini-key', this)" title="Show/Hide">👁️</button>
+            </div>
+            <button type="button" class="btn-secondary btn-sm text-xs font-semibold whitespace-nowrap" onclick="FitnexaApp.testGeminiKeyLive()">
+              ⚡ Test Key
+            </button>
+          </div>
+          <div id="gemini-test-feedback" class="text-xs"></div>
+        </div>
+
+        <!-- Supabase Cloud Credentials Setup -->
+        <div class="card-glass p-3 space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold uppercase text-secondary flex items-center gap-1">
+              <span>⚡</span> Supabase Cloud PostgreSQL
+            </span>
+            <span id="supabase-status-tag" class="badge-mini">Backend Ready</span>
+          </div>
+          <p class="text-xs text-muted">
+            Persist workouts, PRs, body metrics, and nutrition logs to your Supabase PostgreSQL cloud database.
+            <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer" class="text-primary underline ml-1 font-semibold">Supabase Dashboard ↗</a>
+          </p>
+          <div>
+            <label class="text-xs text-muted block mb-1">Project URL</label>
+            <input type="text" id="set-supabase-url" class="w-full text-xs font-mono" placeholder="https://your-project-ref.supabase.co">
+          </div>
+          <div>
+            <label class="text-xs text-muted block mb-1">Anon Public Key</label>
+            <div class="relative">
+              <input type="password" id="set-supabase-key" class="w-full text-xs font-mono pr-8" placeholder="eyJhbGciOiJIUzI1NiIsIn...">
+              <button type="button" class="btn-ghost absolute right-1 top-1 py-1 px-2 text-xs" onclick="FitnexaApp.togglePasswordVisibility('set-supabase-key', this)" title="Show/Hide">👁️</button>
+            </div>
+          </div>
+          <div class="flex gap-2 pt-1">
+            <button type="button" class="btn-secondary btn-sm flex-1 text-xs font-semibold" onclick="FitnexaApp.testSupabaseLive()">
+              ⚡ Test Supabase Connection
+            </button>
+            <button type="button" class="btn-secondary btn-sm flex-1 text-xs font-semibold" onclick="FitnexaApp.copySupabaseSchema(this)">
+              📋 Copy SQL Schema
+            </button>
+          </div>
+          <div id="supabase-test-feedback" class="text-xs"></div>
+        </div>
+
+        <!-- Account & Session / Logout -->
+        <div class="card-glass p-3 space-y-3" style="border: 1px solid rgba(239, 68, 68, 0.25); background: rgba(239, 68, 68, 0.04);">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold uppercase text-danger flex items-center gap-1.5" style="color: var(--danger, #ef4444);">
+              <span>🔐</span> Account & Session
+            </span>
+            <span id="settings-session-badge" class="badge-mini" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">
+              ● Active Session
+            </span>
+          </div>
+
+          <div class="flex items-center justify-between gap-3 flex-wrap">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div id="settings-user-avatar" style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #06b6d4); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 0.9rem; flex-shrink: 0; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);">
+                A
+              </div>
+              <div class="truncate">
+                <div class="font-semibold text-xs text-main truncate" id="settings-user-name">Alex Mercer</div>
+                <div class="text-dim text-2xs truncate" id="settings-user-email">alex@enterprise.com</div>
+              </div>
+            </div>
+            <button type="button" id="btn-logout-settings" class="btn-outline-danger btn-sm text-xs font-semibold whitespace-nowrap flex items-center gap-1.5" onclick="FitnexaApp.logout()" title="Sign out of your session">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              <span>Log Out</span>
+            </button>
+          </div>
+          <p class="text-2xs text-muted" style="margin: 0; font-size: 0.72rem; color: var(--text-dim, #64748b);">
+            Logging out ends your current session and safely returns you to the login screen.
+          </p>
+        </div>
+
+        <div id="settings-test-results"></div>
+
+        <div class="flex gap-2 pt-2">
+          <button type="submit" class="btn-primary flex-1 font-bold">
+            ✓ Save Settings & Persist to Backend
+          </button>
+          <button type="button" class="btn-secondary" onclick="FitnexaApp.testBackendConnections()">
+            🔄 Check Status
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: GLOBAL SEARCH (Ctrl+K) -->
+  <!-- ========================================== -->
+  <div id="global-search-modal" class="modal-overlay">
+    <div class="modal-box p-4 max-w-lg">
+      <div class="flex items-center gap-2 border-b border-glass pb-3 mb-3">
+        <span>🔍</span>
+        <input type="text" id="global-search-input" class="w-full border-none p-0 bg-transparent text-base" placeholder="Search exercises, routines, yoga poses, challenges..." oninput="FitnexaApp.handleGlobalSearch(this.value)">
+        <button type="button" class="btn-ghost btn-sm" onclick="FitnexaApp.closeGlobalSearch()">ESC</button>
+      </div>
+      <div id="global-search-results" class="max-h-80 overflow-y-auto space-y-2"></div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ONBOARDING FLOW WIZARD (6 Steps) -->
+  <!-- ========================================== -->
+  <div id="onboarding-modal" class="modal-overlay">
+    <div class="modal-box text-center">
+      <div class="w-full bg-glass h-1 rounded-full mb-6 overflow-hidden">
+        <div id="onb-progress-fill" class="h-full bg-primary" style="width: 16%;"></div>
+      </div>
+
+      <!-- Step 1: Welcome -->
+      <div id="onb-step-1" class="onb-step-card">
+        <div class="text-5xl mb-3">⚡</div>
+        <h2 class="text-2xl font-bold">Welcome to FITNEXA AI</h2>
+        <p class="text-sm text-muted mt-2 max-w-sm mx-auto">
+          "Your AI Coach. Your Workout. Your Progress." Let's calibrate your profile in 60 seconds.
+        </p>
+        <button type="button" class="btn-primary btn-lg font-bold mt-6 w-full" onclick="FitnexaApp.nextOnboardingStep()">
+          Get Started ➔
+        </button>
+      </div>
+
+      <!-- Step 2: Goal -->
+      <div id="onb-step-2" class="onb-step-card" style="display: none;">
+        <h2 class="text-xl font-bold">What is your primary fitness goal?</h2>
+        <div class="grid grid-cols-1 gap-2 mt-4 text-left">
+          <button type="button" class="btn-choice card-glass p-3 active" onclick="FitnexaApp.selectOnboardingOption('goal', 'Build Muscle', this)">
+            💪 <strong>Build Muscle & Hypertrophy</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('goal', 'Lose Fat', this)">
+            🔥 <strong>Lose Fat & Tone Up</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('goal', 'Get Stronger', this)">
+            ⚡ <strong>Get Stronger & Powerlift</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('goal', 'Improve Flexibility', this)">
+            🧘 <strong>Improve Flexibility & Yoga</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('goal', 'General Fitness', this)">
+            🌿 <strong>General Fitness & Health</strong>
+          </button>
+        </div>
+        <div class="flex gap-2 mt-6">
+          <button type="button" class="btn-secondary flex-1" onclick="FitnexaApp.prevOnboardingStep()">Back</button>
+          <button type="button" class="btn-primary flex-1 font-bold" onclick="FitnexaApp.nextOnboardingStep()">Continue ➔</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Training Style -->
+      <div id="onb-step-3" class="onb-step-card" style="display: none;">
+        <h2 class="text-xl font-bold">Choose your preferred training style:</h2>
+        <div class="grid grid-cols-1 gap-2 mt-4 text-left">
+          <button type="button" class="btn-choice card-glass p-3 active" onclick="FitnexaApp.selectOnboardingOption('training', 'Gym', this)">
+            🏋️ <strong>Gym Weights & Barbells</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('training', 'Calisthenics', this)">
+            🤸 <strong>Calisthenics & Bodyweight</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('training', 'Yoga', this)">
+            🧘 <strong>Yoga & Mobility Flows</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('training', 'Mixed', this)">
+            ⚡ <strong>Mixed Hybrid Training</strong>
+          </button>
+        </div>
+        <div class="flex gap-2 mt-6">
+          <button type="button" class="btn-secondary flex-1" onclick="FitnexaApp.prevOnboardingStep()">Back</button>
+          <button type="button" class="btn-primary flex-1 font-bold" onclick="FitnexaApp.nextOnboardingStep()">Continue ➔</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Fitness Level -->
+      <div id="onb-step-4" class="onb-step-card" style="display: none;">
+        <h2 class="text-xl font-bold">What is your current fitness level?</h2>
+        <div class="grid grid-cols-1 gap-2 mt-4 text-left">
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('level', 'Beginner', this)">
+            🌱 <strong>Beginner (0-6 months)</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3 active" onclick="FitnexaApp.selectOnboardingOption('level', 'Intermediate', this)">
+            ⚡ <strong>Intermediate (6 months - 2 years)</strong>
+          </button>
+          <button type="button" class="btn-choice card-glass p-3" onclick="FitnexaApp.selectOnboardingOption('level', 'Advanced', this)">
+            🏆 <strong>Advanced (2+ years dedicated)</strong>
+          </button>
+        </div>
+        <div class="flex gap-2 mt-6">
+          <button type="button" class="btn-secondary flex-1" onclick="FitnexaApp.prevOnboardingStep()">Back</button>
+          <button type="button" class="btn-primary flex-1 font-bold" onclick="FitnexaApp.nextOnboardingStep()">Continue ➔</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Days Per Week -->
+      <div id="onb-step-5" class="onb-step-card" style="display: none;">
+        <h2 class="text-xl font-bold">How many days per week can you train?</h2>
+        <div class="grid grid-cols-3 gap-2 mt-4">
+          <button type="button" class="btn-choice card-glass p-4 font-bold" onclick="FitnexaApp.selectOnboardingOption('days', 2, this)">2 Days</button>
+          <button type="button" class="btn-choice card-glass p-4 font-bold" onclick="FitnexaApp.selectOnboardingOption('days', 3, this)">3 Days</button>
+          <button type="button" class="btn-choice card-glass p-4 font-bold" onclick="FitnexaApp.selectOnboardingOption('days', 4, this)">4 Days</button>
+          <button type="button" class="btn-choice card-glass p-4 font-bold active" onclick="FitnexaApp.selectOnboardingOption('days', 5, this)">5 Days</button>
+          <button type="button" class="btn-choice card-glass p-4 font-bold" onclick="FitnexaApp.selectOnboardingOption('days', 6, this)">6 Days</button>
+        </div>
+        <div class="flex gap-2 mt-6">
+          <button type="button" class="btn-secondary flex-1" onclick="FitnexaApp.prevOnboardingStep()">Back</button>
+          <button type="button" class="btn-primary flex-1 font-bold" onclick="FitnexaApp.nextOnboardingStep()">Continue ➔</button>
+        </div>
+      </div>
+
+      <!-- Step 6: Duration -->
+      <div id="onb-step-6" class="onb-step-card" style="display: none;">
+        <h2 class="text-xl font-bold">How long is each workout session?</h2>
+        <div class="grid grid-cols-3 gap-2 mt-4">
+          <button type="button" class="btn-choice card-glass p-4 font-bold" onclick="FitnexaApp.selectOnboardingOption('duration', 15, this)">15 mins</button>
+          <button type="button" class="btn-choice card-glass p-4 font-bold" onclick="FitnexaApp.selectOnboardingOption('duration', 30, this)">30 mins</button>
+          <button type="button" class="btn-choice card-glass p-4 font-bold active" onclick="FitnexaApp.selectOnboardingOption('duration', 45, this)">45 mins</button>
+          <button type="button" class="btn-choice card-glass p-4 font-bold" onclick="FitnexaApp.selectOnboardingOption('duration', 60, this)">60 mins</button>
+          <button type="button" class="btn-choice card-glass p-4 font-bold" onclick="FitnexaApp.selectOnboardingOption('duration', 90, this)">90 mins</button>
+        </div>
+        <div class="flex gap-2 mt-6">
+          <button type="button" class="btn-secondary flex-1" onclick="FitnexaApp.prevOnboardingStep()">Back</button>
+          <button type="button" class="btn-primary flex-1 font-bold" onclick="FitnexaApp.nextOnboardingStep()">Generate My Dashboard 🎉</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/muscle-map.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/workout-player.js"></script>
+  <script src="js/ai-coach.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

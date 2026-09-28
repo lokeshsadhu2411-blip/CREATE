@@ -1,0 +1,61 @@
+[
+  {
+    "action": "User Logged Out",
+    "status": "verified",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+    "ip": "::1",
+    "timestamp": "2026-09-28T06:28:47.936Z"
+  },
+  {
+    "uid": "usr_admin_alex",
+    "email": "admin@vesper.ai",
+    "action": "User Signed Out",
+    "status": "success",
+    "timestamp": "2026-09-28T06:28:47.923Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+    "ip": "127.0.0.1 (Local Verified)"
+  },
+  {
+    "uid": "usr_admin_alex",
+    "email": "admin@vesper.ai",
+    "action": "Successful Sign In",
+    "status": "verified",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+    "ip": "::1",
+    "timestamp": "2026-09-28T06:27:10.068Z"
+  },
+  {
+    "email": "lokeshsadhu2411@gmail.com",
+    "action": "Failed Login Attempt",
+    "status": "rejected",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+    "ip": "::1",
+    "timestamp": "2026-09-28T06:27:00.828Z"
+  },
+  {
+    "email": "admin@vesper.ai",
+    "action": "Failed Login Attempt",
+    "status": "rejected",
+    "userAgent": "node",
+    "ip": "::1",
+    "timestamp": "2026-09-28T06:23:56.360Z"
+  },
+  {
+    "uid": "usr_admin_alex",
+    "email": "admin@vesper.ai",
+    "action": "Successful Sign In",
+    "status": "verified",
+    "userAgent": "node",
+    "ip": "::1",
+    "timestamp": "2026-09-28T06:23:22.637Z"
+  },
+  {
+    "uid": "usr_admin_alex",
+    "email": "admin@vesper.ai",
+    "action": "System Security Initialized",
+    "status": "verified",
+    "timestamp": "2026-09-28T06:23:22.637Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "ip": "127.0.0.1 (Local Verified)"
+  }
+]

@@ -1,0 +1,258 @@
+{
+  "profile": {
+    "userId": "alex_default",
+    "name": "Alex",
+    "goal": "Build Muscle",
+    "fitnessLevel": "Intermediate",
+    "trainingPreference": "Gym",
+    "weightKg": 72.4,
+    "heightCm": 180,
+    "age": 26,
+    "gender": "Male",
+    "weeklyDays": 5,
+    "workoutDurationMin": 45,
+    "units": "metric",
+    "xp": 2080,
+    "level": 21,
+    "streakDays": 7,
+    "todayCaloriesBurned": 444,
+    "todayWorkoutMinutes": 48,
+    "todayWaterLiters": 2.1,
+    "todaySleep": "7h 20m",
+    "todaySteps": 7842
+  },
+  "workoutLogs": [
+    {
+      "id": "log_1790580412223",
+      "workoutTitle": "Upper Body Power & Tone",
+      "category": "Gym",
+      "durationSec": 20,
+      "durationMin": 1,
+      "caloriesBurned": 8,
+      "volumeKg": 7212,
+      "exercisesCompleted": 5,
+      "setsCompleted": 17,
+      "xpEarned": 320,
+      "completedAt": "2026-09-28T07:26:52.223Z"
+    },
+    {
+      "id": "log_1790580385053",
+      "workoutTitle": "Upper Body Power & Tone",
+      "category": "Gym",
+      "durationSec": 16,
+      "durationMin": 1,
+      "caloriesBurned": 8,
+      "volumeKg": 7212,
+      "exercisesCompleted": 5,
+      "setsCompleted": 17,
+      "xpEarned": 320,
+      "completedAt": "2026-09-28T07:26:25.053Z"
+    },
+    {
+      "id": "log_1790569914145",
+      "workoutTitle": "Upper Body Power & Tone",
+      "category": "Gym",
+      "durationSec": 9,
+      "durationMin": 1,
+      "caloriesBurned": 8,
+      "volumeKg": 0,
+      "exercisesCompleted": 1,
+      "setsCompleted": 0,
+      "xpEarned": 150,
+      "completedAt": "2026-09-28T04:31:54.145Z"
+    }
+  ],
+  "measurements": [
+    {
+      "id": "m1",
+      "recordedAt": "2026-08-29T08:12:34.739Z",
+      "weightKg": 73.6,
+      "chestCm": 101,
+      "waistCm": 84,
+      "armsCm": 36,
+      "thighsCm": 57,
+      "bodyFatPct": 16.5,
+      "notes": "Starting month baseline"
+    },
+    {
+      "id": "m2",
+      "recordedAt": "2026-09-14T08:12:34.739Z",
+      "weightKg": 72.9,
+      "chestCm": 101.8,
+      "waistCm": 83,
+      "armsCm": 36.5,
+      "thighsCm": 57.5,
+      "bodyFatPct": 15.8,
+      "notes": "Waist dropping nicely"
+    },
+    {
+      "id": "m3",
+      "recordedAt": "2026-09-28T08:12:34.739Z",
+      "weightKg": 72.4,
+      "chestCm": 102.5,
+      "waistCm": 82,
+      "armsCm": 37,
+      "thighsCm": 58,
+      "bodyFatPct": 15.2,
+      "notes": "New PRs hit this week!"
+    }
+  ],
+  "prs": [
+    {
+      "id": "pr_bench",
+      "exerciseName": "Barbell Bench Press",
+      "currentPr": 95,
+      "previousPr": 90,
+      "unit": "kg",
+      "delta": "+5 kg",
+      "date": "2 days ago"
+    },
+    {
+      "id": "pr_squat",
+      "exerciseName": "Barbell Back Squat",
+      "currentPr": 130,
+      "previousPr": 120,
+      "unit": "kg",
+      "delta": "+10 kg",
+      "date": "5 days ago"
+    },
+    {
+      "id": "pr_deadlift",
+      "exerciseName": "Conventional Deadlift",
+      "currentPr": 160,
+      "previousPr": 150,
+      "unit": "kg",
+      "delta": "+10 kg",
+      "date": "10 days ago"
+    },
+    {
+      "id": "pr_pullups",
+      "exerciseName": "Strict Pull-ups",
+      "currentPr": 16,
+      "previousPr": 14,
+      "unit": "reps",
+      "delta": "+2 reps",
+      "date": "4 days ago"
+    },
+    {
+      "id": "pr_pushups",
+      "exerciseName": "Standard Push-ups",
+      "currentPr": 45,
+      "previousPr": 40,
+      "unit": "reps",
+      "delta": "+5 reps",
+      "date": "1 week ago"
+    },
+    {
+      "id": "pr_plank",
+      "exerciseName": "Plank Hold",
+      "currentPr": 180,
+      "previousPr": 150,
+      "unit": "sec",
+      "delta": "+30 sec",
+      "date": "1 week ago"
+    }
+  ],
+  "habits": [
+    {
+      "key": "workout",
+      "title": "Complete Today’s Workout",
+      "icon": "💪",
+      "streak": 7,
+      "completed": true
+    },
+    {
+      "key": "water",
+      "title": "Drink 3.0 L Water",
+      "icon": "💧",
+      "streak": 5,
+      "completed": true
+    },
+    {
+      "key": "steps",
+      "title": "Walk 8,000 Steps",
+      "icon": "👟",
+      "streak": 5,
+      "completed": true
+    },
+    {
+      "key": "sleep",
+      "title": "Sleep 7+ Hours (Restoration)",
+      "icon": "😴",
+      "streak": 6,
+      "completed": true
+    },
+    {
+      "key": "stretch",
+      "title": "10 Mins Stretching / Mobility",
+      "icon": "🧘",
+      "streak": 3,
+      "completed": false
+    },
+    {
+      "key": "meditate",
+      "title": "Mindful Breathing / Meditation",
+      "icon": "🧠",
+      "streak": 2,
+      "completed": true
+    }
+  ],
+  "challenges": [
+    {
+      "id": "c_pushup_7d",
+      "title": "7-Day Push-up Challenge",
+      "category": "Strength",
+      "totalDays": 7,
+      "daysCompleted": 5,
+      "isJoined": true,
+      "reward": "150 XP + \"Iron Chest\" Badge",
+      "description": "Perform 50 pushups daily (divided across sets) for 7 consecutive days to build explosive chest endurance.",
+      "dailyTarget": "50 Push-ups total"
+    },
+    {
+      "id": "c_workout_30d",
+      "title": "30-Day Consistency Streak",
+      "category": "Habit",
+      "totalDays": 30,
+      "daysCompleted": 14,
+      "isJoined": true,
+      "reward": "500 XP + \"Consistency King\" Badge",
+      "description": "Log any workout, yoga flow, or active recovery session for 30 days without breaking the chain.",
+      "dailyTarget": "At least 20 min active session"
+    },
+    {
+      "id": "c_steps_10k",
+      "title": "10,000 Steps Daily Crusher",
+      "category": "Endurance",
+      "totalDays": 14,
+      "daysCompleted": 8,
+      "isJoined": false,
+      "reward": "250 XP + \"Cardio Dynamo\" Badge",
+      "description": "Hit 10K steps every single day to maximize NEAT, burn steady fat, and improve cardiovascular health.",
+      "dailyTarget": "10,000 steps daily"
+    },
+    {
+      "id": "c_yoga_30d",
+      "title": "30-Day Zen Yoga Journey",
+      "category": "Flexibility",
+      "totalDays": 30,
+      "daysCompleted": 0,
+      "isJoined": false,
+      "reward": "400 XP + \"Zen Master\" Badge",
+      "description": "Practice 15 minutes of guided morning or evening yoga every day for a supple spine and relaxed mind.",
+      "dailyTarget": "15 min Yoga Session"
+    },
+    {
+      "id": "c_calisthenics_beast",
+      "title": "Calisthenics Beast Challenge",
+      "category": "Calisthenics",
+      "totalDays": 21,
+      "daysCompleted": 0,
+      "isJoined": false,
+      "reward": "350 XP + \"Gravity Defier\" Badge",
+      "description": "Progress from strict pull-ups and dips towards your first bar muscle-up or 30-second L-Sit hold.",
+      "dailyTarget": "Complete Calisthenics Routine"
+    }
+  ],
+  "lastSynced": "2026-09-28T08:12:39.095Z"
+}

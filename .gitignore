@@ -19,3 +19,4 @@ uploads/*
 # Temporary Git scripts
 git-*.js
 
+.originkit/

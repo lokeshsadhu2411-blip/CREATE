@@ -1,78 +1,79 @@
-# NagarikAI - AI Citizen Grievance Redressal & Smart Civic Action Platform
+# ⚡ FITNEXA AI - Your AI Coach. Your Workout. Your Progress.
 
-![NagarikAI Civic Platform](https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80)
+![FITNEXA AI Platform](https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80)
 
-An intelligent, full-stack civic engagement and grievance redressal platform engineered to eliminate manual form filling and friction for citizens. Enables effortless public hazard reporting (potholes, garbage accumulation, water leakages, broken streetlights, drainage blockages, road damage) through Computer Vision and multilingual voice commands, backed by automatic GPS geocoding, smart municipal routing, duplicate merging, real-time ticket tracking, GIS heatmap analytics, municipal operations dashboard, and **Supabase Cloud PostgreSQL** integration.
+**FITNEXA AI** is a modern, highly interactive, responsive personal fitness coach web application engineered to combine the experience of an elite personal trainer, dynamic workout planner, interactive recovery visualizer, and gamified progress platform.
 
 ---
 
-## 🌟 Key Features
+## 🌟 Key Application Features
 
-1. **AI Image Recognition & HUD Scanner**
-   - Live camera snapshot and photo dropzone.
-   - Futuristic AI scanning line with dynamic bounding boxes highlighting defects.
-   - Accurately classifies: Potholes, Garbage Dumps, Water Leaks, Broken Streetlights, Drainage Issues, and Hazardous Road Collapses.
-   - Confidence scoring (e.g. 98.4%) and urgency grading (Critical / High / Medium).
+### 1. 🤖 AI Fitness Coach (Google Gemini + Smart Engine)
+- **Conversational Chat Assistant**: Sports science advice tailored to your biological profile, goals, and training experience.
+- **Interactive Workout Planner Wizard**: Generate structured routines based on age, gender, fitness level, available equipment, days per week, and duration.
+- **Multi-Model Google Gemini Integration**: Supports `gemini-2.0-flash`, `gemini-1.5-flash`, `gemini-2.5-flash`, and `gemini-1.5-pro` via backend API with seamless local rule-based fallback.
 
-2. **AI Complaint Generation**
-   - Automatically drafts comprehensive municipal complaint title and technical assessment description.
-   - Identifies structural hazards (e.g. skid danger, water loss, pest attraction).
+### 2. 🏋️ Three Major Fitness Modes
+- **Gym Training**: Chest, Back, Shoulders, Arms, Legs, Glutes, Abs, Full Body. Includes pre-built splits: Push Day, Pull Day, Leg Day, Upper Body, Lower Body, Bro Split.
+- **Calisthenics Progression Trees**: Visual milestone pathways from beginner to master (e.g. Wall Push-up ➔ Knee ➔ Standard ➔ Diamond ➔ Archer ➔ One-Arm; Dead Hang ➔ Pull-up ➔ Muscle-Up; L-Sit; Handstand).
+- **Restorative Yoga Sessions**: Morning Flow, Flexibility, Stress Relief, Back Relief, Mobility, Strength Yoga, and Sleep Yoga with pose guides and breathing instructions.
 
-3. **Multilingual Voice-Based Complaint Studio**
-   - Web Speech API integration with native regional language support:
-     - **English** (`en-IN`)
-     - **Telugu - తెలుగు** (`te-IN`)
-     - **Hindi - हिन्दी** (`hi-IN`)
-     - **Tamil - தமிழ்** (`ta-IN`)
-     - **Kannada - ಕನ್ನಡ** (`kn-IN`)
-     - **Malayalam - മലയാളം** (`ml-IN`)
-   - Real-time animated neon audio waveform visualizer.
+### 3. ⏱️ Active Workout Player & Dedicated Rest Timer
+- Real-time exercise stepper with animated exercise previews, weight, sets, and rep tracking.
+- Circular countdown progress ring with audio countdown beeps and completion chimes.
+- Presets: 30s, 45s, 60s, 90s, 2m, 3m, plus custom intervals.
+- Post-workout celebratory completion modal calculating duration, sets, volume lifted, calories burned, and XP earned.
 
-4. **Instant Language Switcher**
-   - Seamless one-click UI translation across all 6 Indian languages.
+### 4. 🧬 Interactive 3D Muscle Recovery Map
+- Anatomical human muscle map (Chest, Back, Shoulders, Biceps, Triceps, Abs, Glutes, Quads, Hamstrings, Calves).
+- Real-time readiness percentages (Ready, Recovering, Fatigued) based on workout history.
+- Click any muscle group to view recovery status and recommended target exercises.
 
-5. **Automatic GPS & Ward Geocoding**
-   - High-accuracy HTML5 Geolocation API.
-   - Reverse-geocodes coordinates into specific street address and Municipal Ward number.
-   - Interactive draggable Leaflet map pin to fine-tune issue location.
+### 5. 🥗 Nutrition & Hydration Tracker
+- Daily caloric budget with macro distribution bars (Protein, Carbohydrates, Healthy Fats).
+- Meal logging for Breakfast, Lunch, Dinner, and Snacks with quick-add popular fitness foods.
+- 1-click hydration logger (+250ml / +500ml).
 
-6. **Smart Department Routing**
-   - Automatically routes issues to:
-     - *Roads, Bridges & Pavements Wing*
-     - *Solid Waste Management & Sanitation (SWM)*
-     - *Water Supply & Sewerage Board (HMWSSB / BWSSB)*
-     - *Electrical & Street Lighting Wing*
-   - Auto-computes target statutory SLA (24h for Critical, 48h for High, 72h for Medium).
+### 6. 📈 Progress Analytics & Charts
+- Interactive charts: Weight over time, workout consistency & duration, calories burned, and strength progression (Bench Press vs Squat).
+- Timeframe filters: 7 Days, 30 Days, 90 Days, 1 Year.
+- Detailed body circumference measurement logs (Chest, Waist, Arms, Thighs, Body Fat %).
 
-7. **Duplicate Complaint Detection & Upvoting**
-   - Proximity search (<150m) scans active database for matching categories.
-   - Displays smart alert: *"⚠️ Similar complaint found 35m away (8 citizens upvoted)"*.
-   - Allows citizens to click **"Upvote (+1 Me Too)"** to escalate municipal priority without creating redundant tickets.
+### 7. ⚖️ BMI & Caloric Needs Calculator
+- Calculates BMI index, BMI classification, Basal Metabolic Rate (BMR), and daily maintenance / fat loss / muscle building caloric targets using the Mifflin-St Jeor formula.
 
-8. **Real-Time Ticket Tracking & Resolution Proof**
-   - 6-Stage visual stepper timeline: `Reported` ➔ `AI Triaged` ➔ `Assigned` ➔ `In Progress` ➔ `Resolved`.
-   - Assigned field officer profile card with contact and badge ID.
-   - **Resolution Verification**: Displays side-by-side **Before vs After** photos uploaded by field staff upon completion.
-   - Citizen satisfaction feedback rating (1-5 stars).
+### 8. 🏆 Gamification, XP, Streaks & Badges
+- Athlete XP and Level progression system (e.g. Level 12 • 1,240 XP).
+- Unlockable achievement badges: *First Workout*, *7 Day Streak*, *10 Workouts*, *100 Push-ups*, *Yoga Beginner*, *Calisthenics Starter*, *Consistency King*.
+- Personal Records (PR) tracker with celebratory animations on new milestone PRs.
 
-9. **Civic GIS Heatmap & Predictive Analytics**
-   - Real-time Leaflet GIS Heatmap displaying density clusters across city zones.
-   - KPI cards: Total Grievances, Active In-Progress, Resolution Rate %, Avg SLA Compliance %, Citizens Engaged.
-   - Department SLA compliance leaderboard.
-   - **AI Predictive Advisory**: Early warning for rainfall and drainage overload.
+### 9. 🎨 5 Premium Color Themes
+1. **Dark Mode** (Emerald & Obsidian Glass)
+2. **Light Mode** (Clean Royal Blue)
+3. **Midnight Mode** (Electric Cyan & Neon Magenta)
+4. **Energy Mode** (High-voltage Amber & Crimson)
+5. **Minimal Mode** (Monochrome Slate & Pure White)
+- UI Density switch: **Comfortable** vs **Compact**.
+- Desktop subtle interactive cursor glow follower (auto-disabled on mobile).
+- Reduced motion toggle for accessibility.
 
-10. **Accessibility & Senior Citizen Mode**
-    - High-contrast color scheme, enlarged typography, and prominent touch targets.
-    - Integrated Text-to-Speech (TTS) voice guidance that reads status and actions aloud.
+---
 
-11. **Municipal Admin & Ward Officer Portal**
-    - Secure role switcher (Citizen ⇄ Officer).
-    - Status management: assign officers, dispatch crews, and submit resolution proof photos.
-    - Audit-ready CSV export of all grievance records.
+## ⚡ Backend Architecture: Google Gemini & Supabase
 
-12. **⚡ Supabase Cloud Integration (PostgreSQL + Realtime)**
-    - Resilient dual-mode database (works out of the box with local JSON, connects seamlessly to Supabase PostgreSQL).
-    - In-app connection manager and 1-click `supabase_schema.sql` database migration.
+FITNEXA AI is designed with a **dual-engine architecture**:
+1. **Works 100% out of the box** using intelligent local state and responsive sports-science heuristics.
+2. **Seamless Cloud Expansion** when you provide your Google Gemini API key and Supabase project credentials.
+
+### Google Gemini AI Studio Setup
+1. Get a free API key at [Google AI Studio](https://aistudio.google.com/app/apikey).
+2. Enter the key into `.env` as `GOOGLE_API_KEY=AIzaSy...` or open **Settings ⚙️** inside the web app and click **Test Key**.
+
+### Supabase Cloud PostgreSQL Setup
+1. Create a free database at [Supabase](https://supabase.com/dashboard).
+2. Open your project's **SQL Editor**, click **"📋 Copy SQL Schema"** from the in-app Settings modal (or copy the contents of `supabase_schema.sql`), and click **Run**.
+3. Copy your **Project URL** and **Anon Public Key** (found in Project Settings ➔ API).
+4. Enter them into `.env` or paste them into the in-app Settings modal and click **Test Supabase Connection**.
 
 ---
 
@@ -83,22 +84,49 @@ An intelligent, full-stack civic engagement and grievance redressal platform eng
 
 ### Installation & Launch
 
-1. Navigate to the project directory:
+1. Open your terminal in the project directory:
    ```bash
    cd "c:\Users\balanagu lokesh\OneDrive\Desktop\New folder"
    ```
 
-2. Start the server:
+2. Install dependencies (already included in `package.json`):
+   ```bash
+   npm install
+   ```
+
+3. Start the application:
    ```bash
    npm start
    ```
 
-3. Open your browser and navigate to:
+4. Open your browser and navigate to:
    ```
    http://localhost:3000
    ```
 
-### ⚡ Supabase Setup (Optional Cloud Sync)
-1. Go to your [Supabase Dashboard](https://supabase.com/dashboard) and create a new project.
-2. Open the **SQL Editor** in Supabase and run the provided [supabase_schema.sql](file:///c:/Users/balanagu%20lokesh/OneDrive/Desktop/New%20folder/supabase_schema.sql).
-3. In NagarikAI, click the **⚡ Supabase** button in the top navigation bar, enter your Project URL and Anon Key, and click **Connect**.
+---
+
+## 📡 REST API Reference
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/status` | GET | Check health, Gemini AI key state, and Supabase database connection |
+| `/api/test-gemini` | POST | Live probe test of a Google Gemini API key with latency measurement |
+| `/api/test-supabase` | POST | Live test of Supabase URL and Anon Key verifying all 8 tables |
+| `/api/schema` | GET | Returns the complete `supabase_schema.sql` database migration script |
+| `/api/config` | POST | Updates and persists API credentials to `.env` and server runtime |
+| `/api/ai/chat` | POST | Conversational AI coach message processing (Gemini with smart fallback) |
+| `/api/ai/workout-plan` | POST | Generates structured JSON workout routine tailored to user parameters |
+| `/api/sync` | GET / POST | Bidirectional data synchronization between client, local storage, and Supabase |
+
+---
+
+## 📱 Keyboard Shortcuts & Navigation
+- **`Ctrl + K`** (or `Cmd + K`): Launch Global Search across exercises, workouts, and challenges.
+- **`Esc`**: Dismiss any open modal dialog.
+- **Top Theme Bar**: 1-click theme switching between Dark, Light, Midnight, Energy, and Minimal.
+- **Bottom Navigation Bar**: Seamless touch navigation for mobile and tablet devices.
+
+---
+
+*FITNEXA AI — "Your AI Coach. Your Workout. Your Progress."*
