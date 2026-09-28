@@ -10,6 +10,15 @@
 </head>
 <body>
 
+  <!-- Custom Luxury Background After Login -->
+  <div class="fitnexa-dynamic-bg" aria-hidden="true">
+    <div class="bg-mesh-gradient"></div>
+    <div class="bg-ambient-orb orb-1"></div>
+    <div class="bg-ambient-orb orb-2"></div>
+    <div class="bg-ambient-orb orb-3"></div>
+    <div class="bg-grid-overlay"></div>
+  </div>
+
   <div class="app-container">
     <!-- DESKTOP SIDEBAR -->
     <aside class="app-sidebar">
@@ -22,6 +31,9 @@
       </div>
 
       <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link" title="Return to Landing Page" style="border-bottom: 1px solid var(--border-glass); margin-bottom: 8px;">
+          <span>🌐</span> Landing Page
+        </a>
         <a href="#dashboard" class="nav-link active" data-route="dashboard" onclick="FitnexaApp.navigateTo('dashboard')">
           <span>📊</span> Dashboard
         </a>
@@ -1689,6 +1701,18 @@
   </div>
 
   <!-- APPLICATION SCRIPTS -->
+  <script>
+    // Ensure active session for guest/demo visitors if none exists
+    try {
+      if (!localStorage.getItem('vesper_session')) {
+        localStorage.setItem('vesper_session', JSON.stringify({
+          name: 'Alex',
+          email: 'alex@enterprise.com',
+          loginAt: new Date().toISOString()
+        }));
+      }
+    } catch(e) {}
+  </script>
   <script src="js/data.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/confetti.js"></script>
@@ -1698,5 +1722,6 @@
   <script src="js/workout-player.js"></script>
   <script src="js/ai-coach.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/cursor-ring-field.js"></script>
 </body>
 </html>

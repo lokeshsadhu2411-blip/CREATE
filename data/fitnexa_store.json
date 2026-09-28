@@ -12,16 +12,42 @@
     "weeklyDays": 5,
     "workoutDurationMin": 45,
     "units": "metric",
-    "xp": 2080,
-    "level": 21,
+    "xp": 2650,
+    "level": 27,
     "streakDays": 7,
-    "todayCaloriesBurned": 444,
-    "todayWorkoutMinutes": 48,
+    "todayCaloriesBurned": 460,
+    "todayWorkoutMinutes": 50,
     "todayWaterLiters": 2.1,
     "todaySleep": "7h 20m",
     "todaySteps": 7842
   },
   "workoutLogs": [
+    {
+      "id": "log_1790588355774",
+      "workoutTitle": "Morning Awakening & Spine Flow",
+      "category": "Yoga",
+      "durationSec": 4,
+      "durationMin": 1,
+      "caloriesBurned": 8,
+      "volumeKg": 0,
+      "exercisesCompleted": 1,
+      "setsCompleted": 0,
+      "xpEarned": 150,
+      "completedAt": "2026-09-28T09:39:15.774Z"
+    },
+    {
+      "id": "log_1790588240136",
+      "workoutTitle": "Push Day (Hypertrophy)",
+      "category": "Gym",
+      "durationSec": 11,
+      "durationMin": 1,
+      "caloriesBurned": 8,
+      "volumeKg": 5580,
+      "exercisesCompleted": 5,
+      "setsCompleted": 17,
+      "xpEarned": 320,
+      "completedAt": "2026-09-28T09:37:20.136Z"
+    },
     {
       "id": "log_1790580412223",
       "workoutTitle": "Upper Body Power & Tone",
@@ -65,7 +91,7 @@
   "measurements": [
     {
       "id": "m1",
-      "recordedAt": "2026-08-29T08:12:34.739Z",
+      "recordedAt": "2026-08-29T09:34:51.974Z",
       "weightKg": 73.6,
       "chestCm": 101,
       "waistCm": 84,
@@ -76,7 +102,7 @@
     },
     {
       "id": "m2",
-      "recordedAt": "2026-09-14T08:12:34.739Z",
+      "recordedAt": "2026-09-14T09:34:51.974Z",
       "weightKg": 72.9,
       "chestCm": 101.8,
       "waistCm": 83,
@@ -87,7 +113,7 @@
     },
     {
       "id": "m3",
-      "recordedAt": "2026-09-28T08:12:34.739Z",
+      "recordedAt": "2026-09-28T09:34:51.974Z",
       "weightKg": 72.4,
       "chestCm": 102.5,
       "waistCm": 82,
@@ -158,8 +184,8 @@
       "key": "workout",
       "title": "Complete Today’s Workout",
       "icon": "💪",
-      "streak": 7,
-      "completed": true
+      "streak": 6,
+      "completed": false
     },
     {
       "key": "water",
@@ -203,7 +229,7 @@
       "title": "7-Day Push-up Challenge",
       "category": "Strength",
       "totalDays": 7,
-      "daysCompleted": 5,
+      "daysCompleted": 6,
       "isJoined": true,
       "reward": "150 XP + \"Iron Chest\" Badge",
       "description": "Perform 50 pushups daily (divided across sets) for 7 consecutive days to build explosive chest endurance.",
@@ -226,7 +252,7 @@
       "category": "Endurance",
       "totalDays": 14,
       "daysCompleted": 8,
-      "isJoined": false,
+      "isJoined": true,
       "reward": "250 XP + \"Cardio Dynamo\" Badge",
       "description": "Hit 10K steps every single day to maximize NEAT, burn steady fat, and improve cardiovascular health.",
       "dailyTarget": "10,000 steps daily"
@@ -254,5 +280,5 @@
       "dailyTarget": "Complete Calisthenics Routine"
     }
   ],
-  "lastSynced": "2026-09-28T08:12:39.095Z"
+  "lastSynced": "2026-09-28T09:39:15.802Z"
 }

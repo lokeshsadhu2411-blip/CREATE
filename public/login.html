@@ -15,20 +15,10 @@
     /* Force black immediately */
     html, body { background: #000000 !important; color: #ffffff; }
 
-    /* Self-hosted WOFF2 fonts with Google Fonts fallback */
-    @font-face {
-      font-family: "Inter";
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url("inter.woff2") format("woff2");
-    }
-    @font-face {
-      font-family: "Instrument Serif";
-      font-style: italic;
-      font-weight: 400;
-      font-display: swap;
-      src: url("instrument-serif-italic.woff2") format("woff2");
+    /* Google Fonts typography fallback */
+    :root {
+      --font-main: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-serif: "Instrument Serif", Georgia, serif;
     }
 
     /* Universal reset */
@@ -803,7 +793,7 @@
         <!-- Badge -->
         <div class="badge appear appear--pop" style="--d: 0.22s;">
           <svg class="badge-star" width="18" height="20" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true">
-            <path d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z"/>
+            <path d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z"/>
           </svg>
           <span>Operational AI Infrastructure</span>
         </div>
@@ -1170,7 +1160,7 @@
 
           showAlert('Access Granted! Welcome to FITNEXA AI Operational Dashboard.', 'success');
           setTimeout(function () {
-            window.location.href = 'index.html';
+            window.location.href = 'dashboard.html';
           }, 900);
         }, 650);
       };
@@ -1202,13 +1192,14 @@
             }));
           } catch (err) {}
 
-          showAlert('Account provisioned! Welcome, ' + name + '. Redirecting...', 'success');
+          showAlert('Account provisioned! Welcome, ' + name + '. Redirecting to Dashboard...', 'success');
           setTimeout(function () {
-            window.location.href = 'index.html';
+            window.location.href = 'dashboard.html';
           }, 900);
         }, 700);
       };
     })();
   </script>
+  <script src="js/cursor-ring-field.js"></script>
 </body>
 </html>

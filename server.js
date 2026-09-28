@@ -726,7 +726,11 @@ app.post('/api/sync', async (req, res) => {
   });
 });
 
-// Dedicated Vesper Routes
+// Dedicated Routes
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));
 });

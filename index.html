@@ -15,20 +15,10 @@
     /* Force black immediately */
     html, body { background: #000000 !important; color: #ffffff; }
 
-    /* Self-hosted WOFF2 fonts with Google Fonts fallback */
-    @font-face {
-      font-family: "Inter";
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url("inter.woff2") format("woff2");
-    }
-    @font-face {
-      font-family: "Instrument Serif";
-      font-style: italic;
-      font-weight: 400;
-      font-display: swap;
-      src: url("instrument-serif-italic.woff2") format("woff2");
+    /* Google Fonts typography fallback */
+    :root {
+      --font-main: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-serif: "Instrument Serif", Georgia, serif;
     }
 
     /* Universal reset */
@@ -1037,12 +1027,15 @@
         }
       };
 
+      // Menu helper function
+      function closeMenu() {
+        document.body.classList.remove('menu-open');
+      }
+
       // Backdrop click handler
       var backdrop = document.getElementById('menu-backdrop');
       if (backdrop) {
-        backdrop.addEventListener('click', function() {
-          document.body.classList.remove('menu-open');
-        });
+        backdrop.addEventListener('click', closeMenu);
       }
 
       // 4. Nav links and Escape close the menu
@@ -1069,7 +1062,25 @@
       } else if (mq.addListener) {
         mq.addListener(handleBreakpoint);
       }
+
+      // 6. Active session check - direct user to Dashboard if logged in
+      try {
+        var activeSession = localStorage.getItem('vesper_session');
+        if (activeSession) {
+          var userObj = JSON.parse(activeSession);
+          var ctaBtns = document.querySelectorAll('.header-cta, .btn-solid');
+          ctaBtns.forEach(function(btn) {
+            if (btn.tagName === 'A' && btn.getAttribute('href') === 'login.html') {
+              btn.setAttribute('href', 'dashboard.html');
+              btn.innerHTML = '⚡ Launch Dashboard';
+            }
+          });
+          var logoutBtn = document.getElementById('logout-btn');
+          if (logoutBtn) logoutBtn.style.display = 'inline-flex';
+        }
+      } catch (err) {}
     })();
   </script>
+  <script src="js/cursor-ring-field.js"></script>
 </body>
 </html>
